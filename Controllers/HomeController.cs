@@ -1,31 +1,22 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using QLHocSinh_LT.Models;
+using QLHocSinh_LT.Models.StudentF;
 
 namespace QLHocSinh_LT.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private IStudentRepository repo;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(IStudentRepository repo)
     {
-        _logger = logger;
+        this.repo = repo;
     }
 
     public IActionResult Index()
     {
-        return View();
+        return View(repo.Students);
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
 }

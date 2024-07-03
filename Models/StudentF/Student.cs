@@ -13,6 +13,7 @@ namespace QLHocSinh_LT.Models.StudentF
         public string? GioiTinh { get; set; }
 
         [Required(ErrorMessage = "Ngày sinh là bắt buộc.")]
+        [DataType(DataType.Date)]
         public DateTime NgaySinh { get; set; }
 
         [Required(ErrorMessage = "Địa chỉ là bắt buộc.")]

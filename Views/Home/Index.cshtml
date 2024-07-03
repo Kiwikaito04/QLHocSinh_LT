@@ -1,12 +1,48 @@
 ﻿@model IQueryable<Student>
-@foreach (var s in Model ?? Enumerable.Empty<Student>())
-{
-    <div>
-        <h3>@s.HoTen</h3>
-        @s.GioiTinh
-        @s.NgaySinh
-        @s.DiaChi
-        @s.LopHoc
-        <h4>@s.DiemTrungBinh</h4>
-    </div>
-}
+<table class="table">
+    <tr>
+        <th>
+            Họ tên
+        </th>
+        <th>
+            Giới tính
+        </th>
+        <th>
+            Ngày sinh
+        </th>
+        <th>
+            Lớp học
+        </th>
+        <th>
+            Diểm TB
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model ?? Enumerable.Empty<Student>())
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GioiTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LopHoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiemTrungBinh)
+            </td>
+            <td>
+                @Html.ActionLink("Chỉnh sửa", "ChinhSuaThongTinHocSinh", new { id = item.Id }) |
+                @Html.ActionLink("Xem chi tiết", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,4 +1,4 @@
-﻿@model IQueryable<Student>
+﻿@model StudentsListViewModel
 <table class="table">
     <tr>
         <th>
@@ -19,7 +19,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model ?? Enumerable.Empty<Student>())
+    @foreach (var item in Model?.Students ?? Enumerable.Empty<Student>())
     {
         <tr>
             <td>
@@ -46,3 +46,4 @@
     }
 
 </table>
+<div page-model="@Model?.PagingInfo" page-action="Index"></div>

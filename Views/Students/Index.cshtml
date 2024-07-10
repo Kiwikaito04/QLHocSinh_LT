@@ -23,19 +23,19 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.HoTen)
+                @item.HoTen
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GioiTinh)
+                @item.GioiTinh
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NgaySinh)
+                @item.NgaySinh.ToShortDateString()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LopHoc)
+                @item.LopHoc
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DiemTrungBinh)
+                @item.DiemTrungBinh
             </td>
             <td>
                 @Html.ActionLink("Chỉnh sửa", "ChinhSuaThongTinHocSinh", new { id = item.Id }) |
@@ -43,6 +43,7 @@
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
+        <form asp-action=""></form>
     }
 
 </table>

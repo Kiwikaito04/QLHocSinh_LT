@@ -68,5 +68,56 @@ namespace QLHocSinh_LT.Controllers
             }
             return View(student);
         }
+
+        // GET: Students/Edit/5
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var student = repo.GetStudentById(id.Value);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return View(student);
+        }
+
+        // POST: Students/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, 
+            [Bind("Id,HoTen,GioiTinh,NgaySinh,DiaChi,Password,LopHoc,DiemTrungBinh")] 
+            Student student)
+        {
+            if (id != student.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    repo.UpdateStudent(student);
+                    repo.Save();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (repo.GetStudentById(student.Id) == null)
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(student);
+        }
     }
 }

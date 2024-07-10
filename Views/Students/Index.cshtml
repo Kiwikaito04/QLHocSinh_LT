@@ -24,31 +24,31 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model?.Students ?? Enumerable.Empty<Student>())
-    {
-        <tr>
-            <td>
-                @item.HoTen
-            </td>
-            <td>
-                @item.GioiTinh
-            </td>
-            <td>
-                @item.NgaySinh.ToShortDateString()
-            </td>
-            <td>
-                @item.LopHoc
-            </td>
-            <td>
-                @item.DiemTrungBinh
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Xem</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Xoá</a>
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model?.Students ?? Enumerable.Empty<Student>())
+        {
+            <tr>
+                <td>
+                    @item.HoTen
+                </td>
+                <td>
+                    @item.GioiTinh
+                </td>
+                <td>
+                    @item.NgaySinh.ToShortDateString()
+                </td>
+                <td>
+                    @item.LopHoc
+                </td>
+                <td>
+                    @item.DiemTrungBinh
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Xem</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Xoá</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <div page-model="@Model?.PagingInfo" page-action="Index"></div>

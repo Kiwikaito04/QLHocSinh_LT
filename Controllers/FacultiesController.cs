@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models.FacultyF;
 using QLHocSinh_LT.Models.StudentF;
 using QLHocSinh_LT.Models.ViewModels;
@@ -59,6 +60,55 @@ namespace QLHocSinh_LT.Controllers
             {
                 repo.AddFaculty(faculty);
                 repo.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(faculty);
+        }
+
+        // GET: Faculties/Edit/5
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var faculty = repo.GetFacultyById(id.Value);
+            if (faculty == null)
+            {
+                return NotFound();
+            }
+            return View(faculty);
+        }
+
+        // POST: Faculties/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, [Bind("Id,Ten,MoTa")] Faculty faculty)
+        {
+            if (id != faculty.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    repo.UpdateFaculty(faculty);
+                    repo.Save();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (repo.GetFacultyById(faculty.Id) == null)
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(faculty);

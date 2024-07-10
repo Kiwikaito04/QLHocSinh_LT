@@ -1,0 +1,29 @@
+﻿@model Student
+
+<h1>Thông tin chi tiết</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Họ tên</dt>
+        <dd class="col-sm-10">@Model?.HoTen</dd>
+
+        <dt class="col-sm-2">Giới tính</dt>
+        <dd class="col-sm-10">@Model?.GioiTinh</dd>
+
+        <dt class="col-sm-2">Ngày sinh</dt>
+        <dd class="col-sm-10">@Model?.NgaySinh.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-2">Lớp học</dt>
+        <dd class="col-sm-10">@Model?.LopHoc</dd>
+        
+        <dt class="col-sm-2">Điểm trung bình</dt>
+        <dd class="col-sm-10">@Model?.DiemTrungBinh</dd>
+
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Sửa</a> |
+    <a asp-action="Index">Quay về</a>
+</div>

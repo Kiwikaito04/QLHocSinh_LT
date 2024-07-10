@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models.StudentF;
 using QLHocSinh_LT.Models.ViewModels;
 
@@ -32,7 +33,23 @@ namespace QLHocSinh_LT.Controllers
             });
         }
 
+        // GET: Students/Details/5
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var student = repo.Students
+                .FirstOrDefault(m => m.Id == id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return View(student);
+        }
 
     }
 }

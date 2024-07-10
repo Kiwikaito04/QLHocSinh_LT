@@ -1,24 +1,29 @@
 ﻿@model StudentsListViewModel
+<p>
+    <a asp-action="Create">Thêm học sinh mới</a>
+</p>
 <table class="table">
-    <tr>
-        <th>
-            Họ tên
-        </th>
-        <th>
-            Giới tính
-        </th>
-        <th>
-            Ngày sinh
-        </th>
-        <th>
-            Lớp học
-        </th>
-        <th>
-            Diểm TB
-        </th>
-        <th></th>
-    </tr>
-
+    <thead>
+        <tr>
+            <th>
+                Họ tên
+            </th>
+            <th>
+                Giới tính
+            </th>
+            <th>
+                Ngày sinh
+            </th>
+            <th>
+                Lớp học
+            </th>
+            <th>
+                Diểm TB
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
     @foreach (var item in Model?.Students ?? Enumerable.Empty<Student>())
     {
         <tr>
@@ -38,13 +43,12 @@
                 @item.DiemTrungBinh
             </td>
             <td>
-                @Html.ActionLink("Chỉnh sửa", "ChinhSuaThongTinHocSinh", new { id = item.Id }) |
-                @Html.ActionLink("Xem chi tiết", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                <a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Xem</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Xoá</a>
             </td>
         </tr>
-        <form asp-action=""></form>
     }
-
+    </tbody>
 </table>
 <div page-model="@Model?.PagingInfo" page-action="Index"></div>

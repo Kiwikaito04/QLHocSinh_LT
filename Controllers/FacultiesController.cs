@@ -30,5 +30,22 @@ namespace QLHocSinh_LT.Controllers
                     TotalItems = repo.Faculties.Count()
                 }
             });
+
+        // GET: Faculties/Create
+        public IActionResult Create() => View();
+
+        // POST: Faculties/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("Id,Ten,MoTa")] Faculty faculty)
+        {
+            if (ModelState.IsValid)
+            {
+                repo.AddFaculty(faculty);
+                repo.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(faculty);
+        }
     }
 }

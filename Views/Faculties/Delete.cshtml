@@ -1,0 +1,22 @@
+﻿@model Faculty
+
+<h1>Xoá khoa</h1>
+
+<hr />
+<div>
+    <h4>Xác nhận xoá?</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Họ tên</dt>
+        <dd class="col-sm-10">@Model?.Ten</dd>
+
+        <dt class="col-sm-2">Giới tính</dt>
+        <dd class="col-sm-10">@Model?.MoTa</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Xác nhận" class="btn btn-danger" /> |
+        <a asp-action="Index">Quay về</a>
+    </form>
+</div>

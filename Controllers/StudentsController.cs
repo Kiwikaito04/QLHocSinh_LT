@@ -16,16 +16,16 @@ namespace QLHocSinh_LT.Controllers
         }
 
         // GET: Students
-        public IActionResult Index(int studentPage = 1) 
+        public IActionResult Index(int currentPage = 1) 
             => View(new StudentsListViewModel
             {
                 Students = repo.Students
                     .OrderBy(s => s.Id)
-                    .Skip((studentPage - 1) * PageSize)
+                    .Skip((currentPage - 1) * PageSize)
                     .Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
-                    CurrentPage = studentPage,
+                    CurrentPage = currentPage,
                     ItemsPerPage = PageSize,
                     TotalItems = repo.Students.Count()
                 }

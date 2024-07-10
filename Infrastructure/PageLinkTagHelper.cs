@@ -42,7 +42,7 @@ namespace QLHocSinh_LT.Infrastructure
                 for (int i = 1; i <= PageModel.TotalPages; i++)
                 {
                     TagBuilder tag = new TagBuilder("a");
-                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { studentPage = i });
+                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { currentPage = i });
                     tag.InnerHtml.Append(i.ToString());
                     result.InnerHtml.AppendHtml(tag);
                 }

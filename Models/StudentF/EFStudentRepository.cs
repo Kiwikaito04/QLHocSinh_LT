@@ -1,15 +1,35 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QLHocSinh_LT.Models.StudentF
 {
     public class EFStudentRepository : IStudentRepository
     {
-        private QLHocSinhDbContext context;
+        private QLHocSinhDbContext _context;
         public EFStudentRepository(QLHocSinhDbContext ctx)
         {
-            context = ctx;
+            _context = ctx;
         }
-        public IQueryable<Student> Students => context.Students;
+        public IQueryable<Student> Students => _context.Students;
+
+        public IEnumerable<Student> GetAllStudents() => _context.Students.ToList();
+
+        public Student GetStudentById(int id) => _context.Students.Find(id);
+
+        public void AddStudent(Student student) => _context.Students.Add(student);
+
+        public void UpdateStudent(Student student) => _context.Students.Update(student);
+
+        public void DeleteStudent(int id)
+        {
+            var student = _context.Students.Find(id);
+            if (student != null)
+            {
+                _context.Students.Remove(student);
+            }
+        }
+
+        public void Save() => _context.SaveChanges();
     }
 
 }

@@ -1,0 +1,36 @@
+﻿@model FacultiesListViewModel
+<p>
+    <a asp-action="Create">Thêm khoa mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tên khoa
+            </th>
+            <th>
+                Mô tả
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model?.Faculties ?? Enumerable.Empty<Faculty>())
+        {
+            <tr>
+                <td>
+                    @item.Ten
+                </td>
+                <td>
+                    @item.MoTa
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Xem</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Xoá</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div page-model="@Model?.PagingInfo" page-action="Index"></div>

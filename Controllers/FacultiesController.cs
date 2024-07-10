@@ -31,6 +31,22 @@ namespace QLHocSinh_LT.Controllers
                 }
             });
 
+        // GET: Faculties/Details/5
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var faculty = repo.GetFacultyById(id.Value);
+            if (faculty == null)
+            {
+                return NotFound();
+            }
+
+            return View(faculty);
+        }
+
         // GET: Faculties/Create
         public IActionResult Create() => View();
 

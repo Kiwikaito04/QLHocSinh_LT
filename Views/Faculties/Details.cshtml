@@ -1,0 +1,19 @@
+﻿@model Faculty
+
+<h1>Thông tin chi tiết</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Tên khoa</dt>
+        <dd class="col-sm-10">@Model?.Ten</dd>
+
+        <dt class="col-sm-2">Mô tả</dt>
+        <dd class="col-sm-10">@Model?.MoTa</dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Sửa</a> |
+    <a asp-action="Index">Quay về</a>
+</div>

@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models;
 using QLHocSinh_LT.Models.StudentF;
+using QLHocSinh_LT.Models.CourseF;
+using QLHocSinh_LT.Models.FacultyF;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddDbContext<QLHocSinhDbContext>(opts => {
     builder.Configuration["ConnectionStrings:QLHSConnection"]);
 });
 builder.Services.AddScoped<IStudentRepository, EFStudentRepository>();
+builder.Services.AddScoped<ICourseRepository, EFCourseRepository>();
+builder.Services.AddScoped<IFacultyRepository, EFFacultyRepository>();
 
 
 

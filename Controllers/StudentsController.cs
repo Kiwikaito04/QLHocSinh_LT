@@ -119,5 +119,32 @@ namespace QLHocSinh_LT.Controllers
             }
             return View(student);
         }
+
+        // GET: Students/Delete/5
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var student = repo.GetStudentById(id.Value);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return View(student);
+        }
+
+        // POST: Students/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            repo.DeleteStudent(id);
+            repo.Save();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

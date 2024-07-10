@@ -1,0 +1,34 @@
+﻿@model Student
+
+<h1>Xoá học sinh</h1>
+
+<hr />
+<div>
+    <h4>Xác nhận xoá?</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Họ tên</dt>
+        <dd class="col-sm-10">@Model?.HoTen</dd>
+
+        <dt class="col-sm-2">Giới tính</dt>
+        <dd class="col-sm-10">@Model?.GioiTinh</dd>
+
+        <dt class="col-sm-2">Ngày sinh</dt>
+        <dd class="col-sm-10">@Model?.NgaySinh.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-2">Địa chỉ</dt>
+        <dd class="col-sm-10">@Model?.DiaChi</dd>
+
+        <dt class="col-sm-2">Lớp học</dt>
+        <dd class="col-sm-10">@Model?.LopHoc</dd>
+
+        <dt class="col-sm-2">Điểm trung bình</dt>
+        <dd class="col-sm-10">@Model?.DiemTrungBinh</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Xác nhận" class="btn btn-danger" /> |
+        <a asp-action="Index">Quay về</a>
+    </form>
+</div>

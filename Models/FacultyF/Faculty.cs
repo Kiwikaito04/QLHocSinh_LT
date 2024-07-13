@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using QLHocSinh_LT.Models.CourseF;
+using System.ComponentModel.DataAnnotations;
 
 namespace QLHocSinh_LT.Models.FacultyF
 {
@@ -11,5 +12,8 @@ namespace QLHocSinh_LT.Models.FacultyF
         public string Ten { get; set; } = String.Empty;
 
         public string MoTa { get; set; } = String.Empty;
+
+
+        public ICollection<Course> Courses { get; set; }
     }
 }

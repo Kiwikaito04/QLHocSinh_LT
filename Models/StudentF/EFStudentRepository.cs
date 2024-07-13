@@ -5,8 +5,8 @@ namespace QLHocSinh_LT.Models.StudentF
 {
     public class EFStudentRepository : IStudentRepository
     {
-        private QLHocSinhDbContext _context;
-        public EFStudentRepository(QLHocSinhDbContext ctx)
+        private MyDbContext _context;
+        public EFStudentRepository(MyDbContext ctx)
         {
             _context = ctx;
         }

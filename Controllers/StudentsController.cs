@@ -8,7 +8,7 @@ namespace QLHocSinh_LT.Controllers
     public class StudentsController : Controller
     {
         private IStudentRepository repo;
-        public int PageSize = 2;
+        public int PageSize = 10;
 
         public StudentsController(IStudentRepository repo)
         {

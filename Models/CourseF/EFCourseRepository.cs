@@ -5,8 +5,8 @@ namespace QLHocSinh_LT.Models.CourseF
 {
     public class EFCourseRepository : ICourseRepository
     {
-        private QLHocSinhDbContext _context;
-        public EFCourseRepository(QLHocSinhDbContext ctx)
+        private MyDbContext _context;
+        public EFCourseRepository(MyDbContext ctx)
         {
             _context = ctx;
         }

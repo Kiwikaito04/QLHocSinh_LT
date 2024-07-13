@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QLHocSinh_LT.Models;
 
@@ -10,10 +11,11 @@ using QLHocSinh_LT.Models;
 
 namespace QLHocSinh_LT.Migrations
 {
-    [DbContext(typeof(QLHocSinhDbContext))]
-    partial class QLHocSinhDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(MyDbContext))]
+    [Migration("20240713043550_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,6 +32,9 @@ namespace QLHocSinh_LT.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("FacultyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Mota")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -42,6 +47,8 @@ namespace QLHocSinh_LT.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FacultyId");
 
                     b.ToTable("Courses");
                 });
@@ -106,6 +113,22 @@ namespace QLHocSinh_LT.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("QLHocSinh_LT.Models.CourseF.Course", b =>
+                {
+                    b.HasOne("QLHocSinh_LT.Models.FacultyF.Faculty", "Faculty")
+                        .WithMany("Courses")
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Faculty");
+                });
+
+            modelBuilder.Entity("QLHocSinh_LT.Models.FacultyF.Faculty", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

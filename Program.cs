@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 //Thêm database QLHS
-builder.Services.AddDbContext<QLHocSinhDbContext>(opts => {
+builder.Services.AddDbContext<MyDbContext>(opts => {
     opts.UseSqlServer(
     builder.Configuration["ConnectionStrings:QLHSConnection"]);
 });

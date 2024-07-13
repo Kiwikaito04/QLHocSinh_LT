@@ -9,7 +9,7 @@ namespace QLHocSinh_LT.Controllers
     public class FacultiesController : Controller
     {
         private IFacultyRepository repo;
-        public int PageSize = 2;
+        public int PageSize = 10;
 
         public FacultiesController(IFacultyRepository repo)
         {

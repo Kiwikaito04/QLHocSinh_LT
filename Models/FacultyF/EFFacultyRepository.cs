@@ -5,8 +5,8 @@ namespace QLHocSinh_LT.Models.FacultyF
 {
     public class EFFacultyRepository : IFacultyRepository
     {
-        private QLHocSinhDbContext _context;
-        public EFFacultyRepository(QLHocSinhDbContext ctx)
+        private MyDbContext _context;
+        public EFFacultyRepository(MyDbContext ctx)
         {
             _context = ctx;
         }

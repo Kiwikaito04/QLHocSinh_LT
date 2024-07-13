@@ -12,8 +12,8 @@ using QLHocSinh_LT.Models;
 namespace QLHocSinh_LT.Migrations
 {
     [DbContext(typeof(QLHocSinhDbContext))]
-    [Migration("20240710083955_CourseAndFaculty")]
-    partial class CourseAndFaculty
+    [Migration("20240713031735_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

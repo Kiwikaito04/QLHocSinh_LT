@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models.FacultyF;
 using QLHocSinh_LT.Models.StudentF;
+using System.Drawing.Printing;
 namespace QLHocSinh_LT.Models
 {
     public static class SeedData
@@ -8,7 +11,7 @@ namespace QLHocSinh_LT.Models
         public static void EnsurePopulated(IApplicationBuilder app)
         {
             MyDbContext context = app.ApplicationServices
-            .CreateScope().ServiceProvider.GetRequiredService<MyDbContext>();
+                .CreateScope().ServiceProvider.GetRequiredService<MyDbContext>();
             if (context.Database.GetPendingMigrations().Any())
             {
                 context.Database.Migrate();
@@ -226,7 +229,7 @@ namespace QLHocSinh_LT.Models
                     LopHoc = "KH2205",
                     DiemTrungBinh = 9.4
                 });
-                context.SaveChanges();
+                
             }
             if (!context.Faculties.Any())
             {
@@ -282,8 +285,30 @@ namespace QLHocSinh_LT.Models
                     MoTa = "Phát triển và quản lý các hệ thống truyền thông"
                 }
                 );
-                context.SaveChanges();
             }
+            if (!context.Users.Any())
+            {
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+                    var user = new IdentityUser
+                    {
+                        UserName = "admin",
+                        Email = "admin@example.com"
+                    };
+
+                    // Thêm người dùng vào cơ sở dữ liệu với mật khẩu đã được hash
+                    var result = userManager.CreateAsync(user, "Ac1!zzzzz").Result;
+                    if (!result.Succeeded)
+                    {
+                        // Xử lý lỗi khi thêm người dùng không thành công
+                    }
+                }
+            }
+
+            context.SaveChanges();
         }
+
     }
 }

@@ -14,6 +14,6 @@ namespace QLHocSinh_LT.Models.FacultyF
         public string MoTa { get; set; } = String.Empty;
 
 
-        public ICollection<Course> Courses { get; set; }
+        public ICollection<Course>? Courses { get; set; }
     }
 }

@@ -8,5 +8,5 @@ namespace QLHocSinh_LT.Controllers;
 
 public class HomeController : Controller
 {
-    
+
 }

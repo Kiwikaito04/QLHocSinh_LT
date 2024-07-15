@@ -30,7 +30,7 @@ namespace QLHocSinh_LT.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("FacultyId")
+                    b.Property<int?>("FacultyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Mota")
@@ -117,9 +117,7 @@ namespace QLHocSinh_LT.Migrations
                 {
                     b.HasOne("QLHocSinh_LT.Models.FacultyF.Faculty", "Faculty")
                         .WithMany("Courses")
-                        .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FacultyId");
 
                     b.Navigation("Faculty");
                 });

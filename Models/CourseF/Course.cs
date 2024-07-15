@@ -17,7 +17,7 @@ namespace QLHocSinh_LT.Models.CourseF
         public string Mota { get; set; } = string.Empty;
 
 
-        public int FacultyId { get; set; }
-        public Faculty Faculty { get; set; }
+        public int? FacultyId { get; set; }
+        public Faculty? Faculty { get; set; }
     }
 }

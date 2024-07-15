@@ -51,7 +51,7 @@ namespace QLHocSinh_LT.Migrations
                     Ten = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TinChi = table.Column<int>(type: "int", nullable: false),
                     Mota = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FacultyId = table.Column<int>(type: "int", nullable: false)
+                    FacultyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -60,8 +60,7 @@ namespace QLHocSinh_LT.Migrations
                         name: "FK_Courses_Faculties_FacultyId",
                         column: x => x.FacultyId,
                         principalTable: "Faculties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

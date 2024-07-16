@@ -18,11 +18,7 @@
             <tr>
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@user.Id">Xem</a> |
-                    <a asp-action="Edit" asp-route-id="@user.Id">Sửa</a> |
-                    <a asp-action="Delete" asp-route-id="@user.Id">Xoá</a>
-                </td>
+                <td><partial name="RUDBtn" model="user" /></td>
             </tr>
         }
     </tbody>

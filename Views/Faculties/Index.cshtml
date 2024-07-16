@@ -5,9 +5,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                Tên khoa
-            </th>
+            <th>Tên khoa</th>
             <th></th>
         </tr>
     </thead>
@@ -15,14 +13,8 @@
         @foreach (var item in Model?.Faculties ?? Enumerable.Empty<Faculty>())
         {
             <tr>
-                <td>
-                    @item.Ten
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Xem</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Xoá</a>
-                </td>
+                <td>@item.Ten</td>
+                <td><partial name="RUDBtn" model="item" /></td>
             </tr>
         }
     </tbody>

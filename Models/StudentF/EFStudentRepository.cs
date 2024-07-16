@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QLHocSinh_LT.Models.StudentF
 {
@@ -12,24 +11,29 @@ namespace QLHocSinh_LT.Models.StudentF
         }
         public IQueryable<Student> Students => _context.Students;
 
-        public IEnumerable<Student> GetAllStudents() => _context.Students.ToList();
+        public async Task<IEnumerable<Student>> GetAllStudentsAsync() 
+            => await _context.Students.ToListAsync();
 
-        public Student GetStudentById(int id) => _context.Students.Find(id);
+        public async Task<Student> GetStudentByIdAsync(int id) 
+            => await _context.Students.FindAsync(id);
 
-        public void AddStudent(Student student) => _context.Students.Add(student);
+        public async Task AddStudentAsync(Student student) 
+            => await _context.Students.AddAsync(student);
 
-        public void UpdateStudent(Student student) => _context.Students.Update(student);
+        public void UpdateStudent(Student student)
+            => _context.Students.Update(student);
 
-        public void DeleteStudent(int id)
+        public async Task DeleteStudentAsync(int id)
         {
-            var student = _context.Students.Find(id);
+            var student = await _context.Students.FindAsync(id);
             if (student != null)
             {
                 _context.Students.Remove(student);
             }
         }
 
-        public void Save() => _context.SaveChanges();
+        public async Task SaveAsync() 
+            => await _context.SaveChangesAsync();
     }
 
 }

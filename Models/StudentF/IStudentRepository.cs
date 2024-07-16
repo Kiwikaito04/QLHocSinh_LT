@@ -3,10 +3,11 @@
     public interface IStudentRepository
     {
         IQueryable<Student> Students { get; }
-        Student GetStudentById(int id);
-        void AddStudent(Student student);
+        Task<IEnumerable<Student>> GetAllStudentsAsync();
+        Task<Student> GetStudentByIdAsync(int id);
+        Task AddStudentAsync(Student student);
         void UpdateStudent(Student student);
-        void DeleteStudent(int id);
-        void Save();
+        Task DeleteStudentAsync(int id);
+        Task SaveAsync();
     }
 }

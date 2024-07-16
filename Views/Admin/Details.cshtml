@@ -11,6 +11,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Sửa</a> | 
-    <a asp-action="Index" class="btn btn-secondary">Quay về</a>
+    <partial name="Btn-Edit" model="@Model" /> | 
+    <partial name="Btn-Back" />
 </div>

@@ -43,11 +43,22 @@ namespace QLHocSinh_LT.Controllers
             }
             return View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        //public async Task OnGetAsync(string returnUrl = null)
+        //{
+        //    if(User.Identity.IsAuthenticated)
+        //    {
+        //        Response.Redirect("/");
+        //    }
+        //    ReturnUrl = returnUrl;
+        //    ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+        //}
     }
 }

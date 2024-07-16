@@ -1,0 +1,28 @@
+﻿@model IEnumerable<IdentityUser>
+
+<h2>Users</h2>
+<a asp-action="Create" class="btn btn-primary">Tạo</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model ?? Enumerable.Empty<IdentityUser>())
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@user.Id">Xem</a> |
+                    <a asp-action="Edit" asp-route-id="@user.Id">Sửa</a> |
+                    <a asp-action="Delete" asp-route-id="@user.Id">Xoá</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

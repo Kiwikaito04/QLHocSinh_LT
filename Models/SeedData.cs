@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models.FacultyF;
 using QLHocSinh_LT.Models.StudentF;
 using System.Drawing.Printing;
+using QLHocSinh_LT.Models.CourseF;
 namespace QLHocSinh_LT.Models
 {
     public static class SeedData
@@ -16,6 +17,8 @@ namespace QLHocSinh_LT.Models
             {
                 context.Database.Migrate();
             }
+
+            //SeedData cha của quan hệ
             if (!context.Students.Any())
             {
                 context.Students.AddRange(
@@ -306,7 +309,25 @@ namespace QLHocSinh_LT.Models
                     }
                 }
             }
+            context.SaveChanges();
 
+            //SeedData sau khi có quan hệ
+            if (!context.Courses.Any())
+            {
+                var facultyId = context.Faculties
+                    .Where(f => f.Ten == "Công nghệ thông tin")
+                    .Select(f => f.Id)
+                    .FirstOrDefault();
+
+                context.AddRange(
+                new Course
+                {
+                    Ten = "Lập trình C#",
+                    TinChi = 3,
+                    FacultyId = facultyId
+                }
+                );
+            }
             context.SaveChanges();
         }
 

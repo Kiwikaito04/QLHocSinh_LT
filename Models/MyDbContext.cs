@@ -16,14 +16,20 @@ namespace QLHocSinh_LT.Models
         public DbSet<Course> Courses => Set<Course>();
         public DbSet<Faculty> Faculties => Set<Faculty>();
 
-        //Một Faculty có nhiều Courses
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Faculty>()
-                .HasMany(f => f.Courses)
-                .WithOne(c => c.Faculty)
-                .HasForeignKey(c => c.FacultyId);
+            //Một Faculty có nhiều Courses
+            //modelBuilder.Entity<Faculty>()
+            //    .HasMany(f => f.Courses)
+            //    .WithOne(c => c.Faculty)
+            //    .HasForeignKey(c => c.FacultyId);
+            modelBuilder.Entity<Course>()
+            .HasOne(c => c.Faculty)
+            .WithMany(f => f.Courses)
+            .HasForeignKey(c => c.FacultyId);
+
         }
     }
 }

@@ -12,7 +12,7 @@ using QLHocSinh_LT.Models;
 namespace QLHocSinh_LT.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240715153744_Initail")]
+    [Migration("20240716050524_Initail")]
     partial class Initail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -230,11 +230,10 @@ namespace QLHocSinh_LT.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("FacultyId")
+                    b.Property<int>("FacultyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Mota")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ten")
@@ -260,7 +259,6 @@ namespace QLHocSinh_LT.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("MoTa")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ten")
@@ -368,7 +366,9 @@ namespace QLHocSinh_LT.Migrations
                 {
                     b.HasOne("QLHocSinh_LT.Models.FacultyF.Faculty", "Faculty")
                         .WithMany("Courses")
-                        .HasForeignKey("FacultyId");
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Faculty");
                 });

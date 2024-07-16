@@ -19,14 +19,14 @@ namespace QLHocSinh_LT.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Index(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {

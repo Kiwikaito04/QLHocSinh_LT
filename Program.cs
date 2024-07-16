@@ -53,7 +53,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
-    options.LoginPath = "/Authorized/Login";
+    options.LoginPath = "/Authorized/Index";
     //options.AccessDeniedPath = "/Identity/Account/AccessDenied";
     options.SlidingExpiration = true;
 });
@@ -77,7 +77,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Authorized}/{action=Login}/{id?}");
+    pattern: "{controller=Authorized}/{action=Index}/{id?}");
 
 //
 

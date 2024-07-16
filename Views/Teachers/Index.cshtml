@@ -1,0 +1,38 @@
+﻿@using QLHocSinh_LT.Models.TeacherF
+@model TeachersListViewModel
+<h2>Danh sách giáo viên</h2>
+<p>
+    <a asp-action="Create" class="btn btn-success">Thêm giáo viên mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Họ tên</th>
+            <th>Giới tính</th>
+            <th>Ngày sinh</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model?.Teachers ?? Enumerable.Empty<Teacher>())
+        {
+            <tr>
+                <td>
+                    @item.HoTen
+                </td>
+                <td>
+                    @item.GioiTinh
+                </td>
+                <td>
+                    @item.NgaySinh.ToShortDateString()
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success">Xem</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Xoá</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div page-model="@Model?.PagingInfo" page-action="Index"></div>

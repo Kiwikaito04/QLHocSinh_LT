@@ -1,0 +1,30 @@
+﻿@using QLHocSinh_LT.Models.TeacherF
+@model Teacher
+
+<h1>Xoá Giáo Viên</h1>
+
+<hr />
+<div>
+    <h4>Xác nhận xoá?</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Họ tên</dt>
+        <dd class="col-sm-10">@Model?.HoTen</dd>
+
+        <dt class="col-sm-2">Giới tính</dt>
+        <dd class="col-sm-10">@Model?.GioiTinh</dd>
+
+        <dt class="col-sm-2">Ngày sinh</dt>
+        <dd class="col-sm-10">@Model?.NgaySinh</dd>
+
+        <dt class="col-sm-2">Địa chỉ</dt>
+        <dd class="col-sm-10">@Model?.DiaChi</dd>
+
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Xác nhận" class="btn btn-danger" /> | 
+        <a asp-action="Index" class="btn btn-secondary">Quay về</a>
+    </form>
+</div>

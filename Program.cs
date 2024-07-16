@@ -4,6 +4,7 @@ using QLHocSinh_LT.Models.StudentF;
 using QLHocSinh_LT.Models.CourseF;
 using QLHocSinh_LT.Models.FacultyF;
 using Microsoft.AspNetCore.Identity;
+using QLHocSinh_LT.Models.TeacherF;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<MyDbContext>(opts => {
 builder.Services.AddScoped<IStudentRepository, EFStudentRepository>();
 builder.Services.AddScoped<ICourseRepository, EFCourseRepository>();
 builder.Services.AddScoped<IFacultyRepository, EFFacultyRepository>();
+builder.Services.AddScoped<ITeacherRepository, EFTeacherRepository>();
 
 //Thêm Identity và các db liên quan cho ứng dụng
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()

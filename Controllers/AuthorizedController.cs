@@ -18,13 +18,16 @@ namespace QLHocSinh_LT.Controllers
             _userManager = userManager;
         }
 
+        //GET : Authorized
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
+        //POST : Authorized
+        //ACTION : Login
+        [HttpPost, ActionName("Login")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(LoginViewModel model)
         {
@@ -41,9 +44,10 @@ namespace QLHocSinh_LT.Controllers
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 }
             }
-            return View(model);
+            return View("Index", model);
         }
 
+        //POST : Authorized/Logout
         [HttpPost]
         public async Task<IActionResult> Logout()
         {

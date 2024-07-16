@@ -82,6 +82,23 @@ namespace QLHocSinh_LT.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Teachers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HoTen = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    GioiTinh = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NgaySinh = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DiaChi = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teachers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -276,6 +293,9 @@ namespace QLHocSinh_LT.Migrations
 
             migrationBuilder.DropTable(
                 name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "Teachers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

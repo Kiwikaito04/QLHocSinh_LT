@@ -34,12 +34,12 @@
                     @item.DiemTrungBinh
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Sửa</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success">Xem</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Sửa</a> | 
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success">Xem</a> | 
                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Xoá</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<div page-model="@Model?.PagingInfo" page-action="Index"></div>
+<partial name="PagingBtn" />

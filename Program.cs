@@ -18,6 +18,12 @@ builder.Services.AddScoped<IStudentRepository, EFStudentRepository>();
 builder.Services.AddScoped<ICourseRepository, EFCourseRepository>();
 builder.Services.AddScoped<IFacultyRepository, EFFacultyRepository>();
 
+//Đăng ký filter
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(new QLHocSinh_LT.Filters.LoginFilter());
+});
+
 //Thêm Identity và các db liên quan cho ứng dụng
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<MyDbContext>()
@@ -58,6 +64,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -65,10 +72,9 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 
 app.UseRouting();
 app.UseAuthentication();

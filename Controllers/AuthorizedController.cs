@@ -20,8 +20,14 @@ namespace QLHocSinh_LT.Controllers
 
         //GET : Authorized
         [HttpGet]
-        public IActionResult Index() 
-            => View();
+        public IActionResult Index()
+        {
+            if (TempData["LoginRequired"] != null)
+            {
+                ViewBag.LoginRequired = TempData["LoginRequired"];
+            }
+            return View();
+        }
 
         //POST : Authorized
         //ACTION : Login

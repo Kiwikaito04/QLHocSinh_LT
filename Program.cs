@@ -18,17 +18,45 @@ builder.Services.AddScoped<IStudentRepository, EFStudentRepository>();
 builder.Services.AddScoped<ICourseRepository, EFCourseRepository>();
 builder.Services.AddScoped<IFacultyRepository, EFFacultyRepository>();
 
+//Thêm Identity và các db liên quan cho ứng dụng
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<MyDbContext>()
     .AddDefaultTokenProviders();
 builder.Services.AddScoped<IPasswordHasher<IdentityUser>, PasswordHasher<IdentityUser>>();
 
+//Cấu hình package Identity cho ứng dụng
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings.
+    options.Password.RequireDigit = true; // default = true
+    options.Password.RequireLowercase = false; // default = true
+    options.Password.RequireNonAlphanumeric = false; // default = true
+    options.Password.RequireUppercase = false; // default = true
+    options.Password.RequiredLength = 6; // default = 6
+    options.Password.RequiredUniqueChars = 0; // default = 0
+
+    // Lockout settings.
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
+
+    // User settings.
+    options.User.AllowedUserNameCharacters =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = false;
+});
+
 // Cấu hình cookie cho ứng dụng
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/Authorized/Login";
-});
+    // Cookie settings
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
+    options.LoginPath = "/Authorized/Login";
+    //options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.SlidingExpiration = true;
+});
 
 var app = builder.Build();
 
@@ -44,7 +72,6 @@ app.UseStaticFiles();
 app.UseRouting();
 SeedData.EnsurePopulated(app);
 
-app.UseAuthorization();
 app.UseAuthentication();
 app.UseAuthorization();
 

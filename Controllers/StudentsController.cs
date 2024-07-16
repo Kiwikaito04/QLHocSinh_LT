@@ -18,32 +18,38 @@ namespace QLHocSinh_LT.Controllers
         }
 
         // GET: Students
-        public IActionResult Index(int currentPage = 1) 
-            => View(new StudentsListViewModel
+        public async Task<IActionResult> Index(int currentPage = 1)
+        {
+            var totalItems = await repo.Students.CountAsync();
+
+            var viewModel = new StudentsListViewModel
             {
-                Students = repo.Students
-                    .OrderBy(s => s.Id)
-                    .Skip((currentPage - 1) * PageSize)
-                    .Take(PageSize),
+                Students = await repo.Students
+                                    .OrderBy(s => s.Id)
+                                    .Skip((currentPage - 1) * PageSize)
+                                    .Take(PageSize)
+                                    .ToListAsync(),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = currentPage,
                     ItemsPerPage = PageSize,
-                    TotalItems = repo.Students.Count()
+                    TotalItems = totalItems
                 }
-            });
+            };
+
+            return View(viewModel);
+        }
+
 
         // GET: Students/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            //var student = repo.Students
-            //    .FirstOrDefault(m => m.Id == id);
-            var student = repo.GetStudentById(id.Value);
+            var student = await repo.GetStudentByIdAsync(id.Value);
             if (student == null)
             {
                 return NotFound();
@@ -58,28 +64,28 @@ namespace QLHocSinh_LT.Controllers
         // POST: Students/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(
+        public async Task<IActionResult> Create(
             [Bind("Id,HoTen,GioiTinh,NgaySinh,DiaChi,Password,LopHoc,DiemTrungBinh")] 
             Student student)
         {
             if (ModelState.IsValid)
             {
-                repo.AddStudent(student);
-                repo.Save();
+                repo.AddStudentAsync(student);
+                await repo.SaveAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(student);
         }
 
         // GET: Students/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student = repo.GetStudentById(id.Value);
+            var student = await repo.GetStudentByIdAsync(id.Value);
             if (student == null)
             {
                 return NotFound();
@@ -90,7 +96,7 @@ namespace QLHocSinh_LT.Controllers
         // POST: Students/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, 
+        public async Task<IActionResult> Edit(int id, 
             [Bind("Id,HoTen,GioiTinh,NgaySinh,DiaChi,Password,LopHoc,DiemTrungBinh")] 
             Student student)
         {
@@ -104,11 +110,11 @@ namespace QLHocSinh_LT.Controllers
                 try
                 {
                     repo.UpdateStudent(student);
-                    repo.Save();
+                    await repo.SaveAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (repo.GetStudentById(student.Id) == null)
+                    if (repo.GetStudentByIdAsync(student.Id) == null)
                     {
                         return NotFound();
                     }
@@ -123,14 +129,14 @@ namespace QLHocSinh_LT.Controllers
         }
 
         // GET: Students/Delete/5
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student = repo.GetStudentById(id.Value);
+            var student = await repo.GetStudentByIdAsync(id.Value);
             if (student == null)
             {
                 return NotFound();
@@ -142,10 +148,10 @@ namespace QLHocSinh_LT.Controllers
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            repo.DeleteStudent(id);
-            repo.Save();
+            await repo.DeleteStudentAsync(id);
+            await repo.SaveAsync();
             return RedirectToAction(nameof(Index));
         }
     }

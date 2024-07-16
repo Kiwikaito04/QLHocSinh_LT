@@ -1,6 +1,6 @@
 ﻿@model FacultiesListViewModel
 <p>
-    <a asp-action="Create">Thêm khoa mới</a>
+    <partial name="Btn-Create" />
 </p>
 <table class="table">
     <thead>
@@ -14,7 +14,7 @@
         {
             <tr>
                 <td>@item.Ten</td>
-                <td><partial name="RUDBtn" model="item" /></td>
+                <td><partial name="IndexBtn" model="item" /></td>
             </tr>
         }
     </tbody>

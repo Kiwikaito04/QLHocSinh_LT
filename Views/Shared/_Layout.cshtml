@@ -44,13 +44,16 @@
                                 <span class="nav-link text-dark">Chào mừng, @User.Identity.Name!</span>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Authorized" asp-action="Logout">Đăng xuất</a>
+                                <form asp-controller="Authorized" asp-action="Logout" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn nav-link text-dark">Đăng xuất</button>
+                                </form>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Authorized" asp-action="Login">Đăng nhập</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Authorized" asp-action="Index">Đăng nhập</a>
                             </li>
                         }
                     </ul>

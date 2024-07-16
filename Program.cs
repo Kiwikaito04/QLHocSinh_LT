@@ -69,9 +69,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-app.UseRouting();
-SeedData.EnsurePopulated(app);
 
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -79,6 +78,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Authorized}/{action=Index}/{id?}");
 
-//
+SeedData.EnsurePopulated(app);
 
 app.Run();

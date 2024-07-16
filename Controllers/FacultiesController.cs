@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models.FacultyF;
 using QLHocSinh_LT.Models.StudentF;
@@ -6,6 +7,7 @@ using QLHocSinh_LT.Models.ViewModels;
 
 namespace QLHocSinh_LT.Controllers
 {
+    [Authorize]
     public class FacultiesController : Controller
     {
         private IFacultyRepository repo;

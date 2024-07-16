@@ -35,7 +35,7 @@ namespace QLHocSinh_LT.Controllers
                 if (user != null && (await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false)).Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: model.RememberMe);
-                    return RedirectToAction(nameof(Index), "Students");
+                    return RedirectToAction("Index", "Students");
                 }
                 else
                 {
@@ -47,10 +47,11 @@ namespace QLHocSinh_LT.Controllers
 
         //POST : Authorized/Logout
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(Index), "Home");
+            return RedirectToAction(nameof(Index));
         }
 
         //public async Task OnGetAsync(string returnUrl = null)

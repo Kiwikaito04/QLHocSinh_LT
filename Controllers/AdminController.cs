@@ -13,14 +13,11 @@ namespace QLHocSinh_LT.Controllers
             _userManager = userManager;
         }
 
-        // Hiển thị danh sách người dùng
-        public IActionResult Index()
-        {
-            var users = _userManager.Users.ToList();
-            return View(users);
-        }
+        //GET : Admin
+        public IActionResult Index() 
+            => View(_userManager.Users.ToList());
 
-        // Hiển thị chi tiết người dùng
+        //GET : Admin/Details/1
         public async Task<IActionResult> Details(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -31,19 +28,19 @@ namespace QLHocSinh_LT.Controllers
             return View(user);
         }
 
-        // Hiển thị form tạo người dùng
-        public IActionResult Create()
-        {
-            return View();
-        }
+        //GET : Admin/Create/1
+        public IActionResult Create() 
+            => View();
 
-        // Xử lý form tạo người dùng
+        //POST : Admin/Create/1
         [HttpPost]
         public async Task<IActionResult> Create(RegisterViewModel model)
         {
+            //Lớp 1: kiểm tra biểu mẫu
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = model.Username, Email = model.Email };
+                //Lớp 2: thử thêm tài khoản
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -57,7 +54,7 @@ namespace QLHocSinh_LT.Controllers
             return View(model);
         }
 
-        // Hiển thị form chỉnh sửa người dùng
+        //GET : Admin/Edit/1
         public async Task<IActionResult> Edit(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -68,10 +65,11 @@ namespace QLHocSinh_LT.Controllers
             return View(user);
         }
 
-        // Xử lý form chỉnh sửa người dùng
+        //POST : Admin/Edit/1
         [HttpPost]
         public async Task<IActionResult> Edit(IdentityUser model)
         {
+            //Lớp 1: kiểm tra biểu mẫu
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByIdAsync(model.Id);
@@ -83,6 +81,7 @@ namespace QLHocSinh_LT.Controllers
                 user.UserName = model.UserName;
                 user.Email = model.Email;
 
+                //Lớp 2: thử cập nhật tài khoản
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
@@ -96,7 +95,7 @@ namespace QLHocSinh_LT.Controllers
             return View(model);
         }
 
-        // Xóa người dùng
+        //GET : Admin/Delete/1
         public async Task<IActionResult> Delete(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -104,6 +103,20 @@ namespace QLHocSinh_LT.Controllers
             {
                 return NotFound();
             }
+            return View(user);
+        }
+
+        //POST : Admin/Delete/1
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirm(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            //Lớp : thử xoá tài khoản
             var result = await _userManager.DeleteAsync(user);
             if (result.Succeeded)
             {

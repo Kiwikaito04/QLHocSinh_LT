@@ -20,10 +20,8 @@ namespace QLHocSinh_LT.Controllers
 
         //GET : Authorized
         [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() 
+            => View();
 
         //POST : Authorized
         //ACTION : Login
@@ -37,14 +35,14 @@ namespace QLHocSinh_LT.Controllers
                 if (user != null && (await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false)).Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: model.RememberMe);
-                    return RedirectToAction("Index", "Students");
+                    return RedirectToAction(nameof(Index), "Students");
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 }
             }
-            return View("Index", model);
+            return View(nameof(Index), model);
         }
 
         //POST : Authorized/Logout
@@ -52,7 +50,7 @@ namespace QLHocSinh_LT.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index), "Home");
         }
 
         //public async Task OnGetAsync(string returnUrl = null)

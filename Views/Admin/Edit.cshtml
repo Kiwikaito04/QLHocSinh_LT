@@ -1,4 +1,4 @@
-﻿@model IdentityUser
+﻿@model EditUserViewModel
 
 <h2>Chỉnh sửa User</h2>
 
@@ -16,7 +16,16 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <label asp-for="NewPassword" class="control-label"></label>
+                <input asp-for="NewPassword" class="form-control" />
+                <span asp-validation-for="NewPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>

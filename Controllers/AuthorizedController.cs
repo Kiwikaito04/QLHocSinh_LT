@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using QLHocSinh_LT.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using QLHocSinh_LT.Models.ViewModels.IU;
 
 namespace QLHocSinh_LT.Controllers
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using QLHocSinh_LT.Models.ViewModels;
+using QLHocSinh_LT.Models.ViewModels.IU;
 
 namespace QLHocSinh_LT.Controllers
 {
@@ -57,17 +57,27 @@ namespace QLHocSinh_LT.Controllers
         //GET : Admin/Edit/1
         public async Task<IActionResult> Edit(string id)
         {
+            //Tìm user theo id
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            return View(user);
+
+            //Chuyển User thành EditUserViewModel để hiển thị
+            var model = new EditUserViewModel
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email
+            };
+
+            return View(model);
         }
 
         //POST : Admin/Edit/1
         [HttpPost]
-        public async Task<IActionResult> Edit(IdentityUser model)
+        public async Task<IActionResult> Edit(EditUserViewModel model)
         {
             //Lớp 1: kiểm tra biểu mẫu
             if (ModelState.IsValid)
@@ -81,10 +91,25 @@ namespace QLHocSinh_LT.Controllers
                 user.UserName = model.UserName;
                 user.Email = model.Email;
 
-                //Lớp 2: thử cập nhật tài khoản
+                //Lớp 2: thử cập nhật thông tin tài khoản
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
+                    //Lớp 3: Kiểm tra có cần cập nhật mật khẩu không
+                    if (!string.IsNullOrEmpty(model.NewPassword))
+                    {
+                        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                        //Lớp 4: Thử cập nhật mật khẩu
+                        var passwordChangeResult = await _userManager.ResetPasswordAsync(user, token, model.NewPassword);
+                        if (!passwordChangeResult.Succeeded)
+                        {
+                            foreach (var error in passwordChangeResult.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                            return View(model);
+                        }
+                    }
                     return RedirectToAction("Index");
                 }
                 foreach (var error in result.Errors)

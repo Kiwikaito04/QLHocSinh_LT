@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace QLHocSinh_LT.Models.ViewModels
+namespace QLHocSinh_LT.Models.ViewModels.IU
 {
     public class RegisterViewModel
     {

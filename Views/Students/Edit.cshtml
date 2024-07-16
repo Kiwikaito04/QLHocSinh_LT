@@ -7,12 +7,12 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div class="form-group">
-                <label asp-for="HoTen" class="control-label">Họ tên</label>
+                <label asp-for="HoTen" class="control-label"></label>
                 <input asp-for="HoTen" class="form-control" />
                 <span asp-validation-for="HoTen" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GioiTinh" class="control-label">Giới tính</label>
+                <label asp-for="GioiTinh" class="control-label"></label>
                 <select asp-for="GioiTinh" class="form-control">
                     <option value="Nam">Nam</option>
                     <option value="Nữ">Nữ</option>
@@ -20,24 +20,28 @@
                 <span asp-validation-for="GioiTinh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NgaySinh" class="control-label">Ngày sinh</label>
+                <label asp-for="NgaySinh" class="control-label"></label>
                 <input asp-for="NgaySinh" class="form-control" />
                 <span asp-validation-for="NgaySinh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DiaChi" class="control-label">Địa chỉ</label>
+                <label asp-for="DiaChi" class="control-label"></label>
                 <input asp-for="DiaChi" class="form-control" />
                 <span asp-validation-for="DiaChi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label">Mật khẩu</label>
+                <label asp-for="Password" class="control-label"></label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LopHoc" class="control-label">Lớp</label>
+                <label asp-for="LopHoc" class="control-label"></label>
                 <input asp-for="LopHoc" class="form-control" />
                 <span asp-validation-for="LopHoc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiemTrungBinh" class="control-label"></label>
+                <input asp-for="DiemTrungBinh" readonly class="form-control" />
             </div>
 
             <div class="form-group">

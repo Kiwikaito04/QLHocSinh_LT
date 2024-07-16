@@ -3,16 +3,15 @@
 <h1>Thông tin chi tiết</h1>
 
 <div>
+    <h4>@Model?.HoTen</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">Họ tên</dt>
-        <dd class="col-sm-10">@Model?.HoTen</dd>
 
         <dt class="col-sm-2">Giới tính</dt>
         <dd class="col-sm-10">@Model?.GioiTinh</dd>
 
         <dt class="col-sm-2">Ngày sinh</dt>
-        <dd class="col-sm-10">@Model?.NgaySinh.ToString("dd/MM/yyyy")</dd>
+        <dd class="col-sm-10">@Model?.NgaySinh</dd>
 
         <dt class="col-sm-2">Địa chỉ</dt>
         <dd class="col-sm-10">@Model?.DiaChi</dd>
@@ -27,6 +26,6 @@
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Sửa</a> |
-    <a asp-action="Index">Quay về</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Sửa</a> | 
+    <a asp-action="Index" class="btn btn-secondary">Quay về</a>
 </div>

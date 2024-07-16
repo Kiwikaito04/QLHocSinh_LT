@@ -10,5 +10,7 @@
         <dd class="col-sm-10">@Model.Email</dd>
     </dl>
 </div>
-<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Sửa</a>
-<a asp-action="Index" class="btn btn-secondary">Quay về</a>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Sửa</a> | 
+    <a asp-action="Index" class="btn btn-secondary">Quay về</a>
+</div>

@@ -14,7 +14,7 @@
         <dd class="col-sm-10">@Model?.GioiTinh</dd>
 
         <dt class="col-sm-2">Ngày sinh</dt>
-        <dd class="col-sm-10">@Model?.NgaySinh.ToString("dd/MM/yyyy")</dd>
+        <dd class="col-sm-10">@Model?.NgaySinh</dd>
 
         <dt class="col-sm-2">Địa chỉ</dt>
         <dd class="col-sm-10">@Model?.DiaChi</dd>
@@ -28,7 +28,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Xác nhận" class="btn btn-danger" /> |
-        <a asp-action="Index">Quay về</a>
+        <input type="submit" value="Xác nhận" class="btn btn-danger" /> | 
+        <a asp-action="Index" class="btn btn-secondary">Quay về</a>
     </form>
 </div>

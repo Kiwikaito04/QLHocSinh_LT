@@ -1,26 +1,16 @@
 ﻿@model StudentsListViewModel
-<h2>Students</h2>
+<h2>Danh sách học sinh</h2>
 <p>
-    <a asp-action="Create">Thêm học sinh mới</a>
+    <a asp-action="Create" class="btn btn-success">Thêm học sinh mới</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                Họ tên
-            </th>
-            <th>
-                Giới tính
-            </th>
-            <th>
-                Ngày sinh
-            </th>
-            <th>
-                Lớp học
-            </th>
-            <th>
-                Điểm TB
-            </th>
+            <th>Họ tên</th>
+            <th>Giới tính</th>
+            <th>Ngày sinh</th>
+            <th>Lớp học</th>
+            <th>Điểm TB</th>
             <th></th>
         </tr>
     </thead>
@@ -44,9 +34,9 @@
                     @item.DiemTrungBinh
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Xem</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Xoá</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success">Xem</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Xoá</a>
                 </td>
             </tr>
         }

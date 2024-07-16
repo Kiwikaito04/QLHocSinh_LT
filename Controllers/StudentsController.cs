@@ -123,7 +123,7 @@ namespace QLHocSinh_LT.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = student.Id });
             }
             return View(student);
         }

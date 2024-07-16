@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models.CourseF;
 using QLHocSinh_LT.Models.FacultyF;
 using QLHocSinh_LT.Models.StudentF;
+using QLHocSinh_LT.Models.TeacherF;
 
 namespace QLHocSinh_LT.Models
 {
@@ -16,6 +17,7 @@ namespace QLHocSinh_LT.Models
         public DbSet<Course> Courses => Set<Course>();
         public DbSet<Faculty> Faculties => Set<Faculty>();
 
+        public DbSet<Teacher> Teachers => Set<Teacher>();
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

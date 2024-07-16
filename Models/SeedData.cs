@@ -5,6 +5,7 @@ using QLHocSinh_LT.Models.FacultyF;
 using QLHocSinh_LT.Models.StudentF;
 using System.Drawing.Printing;
 using QLHocSinh_LT.Models.CourseF;
+using QLHocSinh_LT.Models.TeacherF;
 namespace QLHocSinh_LT.Models
 {
     public static class SeedData
@@ -234,6 +235,95 @@ namespace QLHocSinh_LT.Models
                 });
                 
             }
+
+            if (!context.Teachers.Any())
+            {
+                context.AddRange(
+                    new Teacher
+                    {
+                        HoTen = "Mavuika",
+                        GioiTinh = "Nữ",
+                        NgaySinh = new DateTime(2015, 8, 5),
+                        DiaChi = "115 District13 P16 Q8",
+                        Password = "123",
+                    },
+
+                    new Teacher
+                    {
+                        HoTen = "Hanabi",
+                        GioiTinh = "Nữ",
+                        NgaySinh = new DateTime(2015, 8, 5),
+                        DiaChi = "115 District13 P16 Q8",
+                        Password = "123",
+                    },
+
+                    new Teacher
+                    {
+                        HoTen = "Kafka",
+                        GioiTinh = "Nữ",
+                        NgaySinh = new DateTime(2015, 8, 5),
+                        DiaChi = "115 District13 P16 Q8",
+                        Password = "123",
+                    },
+
+                    new Teacher
+                    {
+                        HoTen = "Emilia",
+                        GioiTinh = "Nữ",
+                        NgaySinh = new DateTime(2015, 7, 5),
+                        DiaChi = "115 District13 P16 Q8",
+                        Password = "123",
+                    },
+
+                    new Teacher
+                    {
+                        HoTen = "Ruan Mei",
+                        GioiTinh = "Nữ",
+                        NgaySinh = new DateTime(2015, 8, 5),
+                        DiaChi = "115 District13 P16 Q8",
+                        Password = "123",
+                    },
+
+                    new Teacher
+                    {
+                        HoTen = "Nahida",
+                        GioiTinh = "Nữ",
+                        NgaySinh = new DateTime(2015, 8, 5),
+                        DiaChi = "115 District13 P16 Q8",
+                        Password = "123",
+                    },
+
+                    new Teacher
+                    {
+                        HoTen = "Navia",
+                        GioiTinh = "Nữ",
+                        NgaySinh = new DateTime(2015, 8, 10),
+                        DiaChi = "115 District13 P16 Q8",
+                        Password = "123",
+                    },
+
+                    new Student
+                    {
+                        HoTen = "Miyabi",
+                        GioiTinh = "Nữ",
+                        NgaySinh = new DateTime(2015, 6, 5),
+                        DiaChi = "115 District13 P16 Q8",
+                        Password = "123",
+                    },
+
+                    new Teacher
+                    {
+                        HoTen = "Hu Tao",
+                        GioiTinh = "Nữ",
+                        NgaySinh = new DateTime(2015, 6, 7),
+                        DiaChi = "115 District13 P16 Q8",
+                        Password = "123",
+                    }
+
+                    );
+                    context.SaveChanges();
+            }
+
             if (!context.Faculties.Any())
             {
                 context.AddRange(

@@ -1,10 +1,11 @@
-﻿@model Student
+﻿@model CStudentVM
 
 <h1>Thêm học sinh mới</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
+
         <form asp-action="Create">
             <div class="form-group">
                 <label asp-for="HoTen" class="control-label"></label>
@@ -28,6 +29,16 @@
                 <label asp-for="DiaChi" class="control-label"></label>
                 <input asp-for="DiaChi" class="form-control" />
                 <span asp-validation-for="DiaChi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SDT" class="control-label"></label>
+                <input asp-for="SDT" class="form-control" />
+                <span asp-validation-for="SDT" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LopHoc" class="control-label"></label>

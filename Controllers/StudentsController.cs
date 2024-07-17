@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models;
@@ -6,15 +7,22 @@ using QLHocSinh_LT.Models.ViewModels;
 
 namespace QLHocSinh_LT.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class StudentsController : Controller
     {
         private IStudentRepository repo;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         public int PageSize = 10;
 
-        public StudentsController(IStudentRepository repo)
+        public StudentsController(
+            IStudentRepository repo, 
+            UserManager<ApplicationUser> userManager, 
+            RoleManager<IdentityRole> roleManager)
         {
             this.repo = repo;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: Students
@@ -26,6 +34,7 @@ namespace QLHocSinh_LT.Controllers
             {
                 Students = await repo.Students
                                     .OrderBy(s => s.Id)
+                                    .Include(s => s.IdentityUser)
                                     .Skip((currentPage - 1) * PageSize)
                                     .Take(PageSize)
                                     .ToListAsync(),
@@ -39,7 +48,6 @@ namespace QLHocSinh_LT.Controllers
 
             return View(viewModel);
         }
-
 
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -59,20 +67,50 @@ namespace QLHocSinh_LT.Controllers
         }
 
         // GET: Students/Create
-        public IActionResult Create() => View();
+        public IActionResult Create() 
+            => View();
 
         // POST: Students/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("Id,HoTen,GioiTinh,NgaySinh,DiaChi,Password,LopHoc,DiemTrungBinh")] 
-            Student student)
+            [Bind("Id,HoTen,GioiTinh,NgaySinh,DiaChi,LopHoc")] 
+            CStudentVM student)
         {
             if (ModelState.IsValid)
             {
-                await repo.AddStudentAsync(student);
-                await repo.SaveAsync();
-                return RedirectToAction(nameof(Index));
+                string usernname = student.HoTen.Replace(" ","").ToLower();
+                string password = student.NgaySinh.ToString("dd/MM/yyyy").Replace("/","");
+                var user = new ApplicationUser
+                {
+                    UserName = usernname
+                };
+                var result = await _userManager.CreateAsync(user, password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Student");
+                    var _student = new Student
+                    {
+                        HoTen = student.HoTen,
+                        GioiTinh = student.GioiTinh,
+                        NgaySinh = student.NgaySinh,
+                        DiaChi = student.DiaChi,
+                        Email = student.Email,
+                        SDT = student.SDT,
+                        LopHoc = student.LopHoc,
+                        IdentityUserId = user.Id
+                    };
+                    await repo.AddStudentAsync(_student);
+                    await repo.SaveAsync();
+                    return RedirectToAction(nameof(Details), new { id = _student.Id });
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
             }
             return View(student);
         }

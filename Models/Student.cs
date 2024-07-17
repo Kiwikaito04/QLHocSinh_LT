@@ -43,7 +43,7 @@ namespace QLHocSinh_LT.Models
         [DefaultValue(0)]
         public double DiemTrungBinh { get; set; }
 
-
+        
         // Foreign Key
         public string IdentityUserId { get; set; }
 

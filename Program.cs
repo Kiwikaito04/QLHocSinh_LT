@@ -17,9 +17,10 @@ builder.Services.AddScoped<IFacultyRepository, EFFacultyRepository>();
 builder.Services.AddScoped<ITeacherRepository, EFTeacherRepository>();
 
 //Thêm Identity và các db liên quan cho ứng dụng
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<MyDbContext>()
     .AddDefaultTokenProviders();
+
 builder.Services.AddScoped<IPasswordHasher<IdentityUser>, PasswordHasher<IdentityUser>>();
 
 //Cấu hình package Identity cho ứng dụng
@@ -76,6 +77,16 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Authorized}/{action=Index}/{id?}");
 
+//using (var scope = app.Services.CreateScope())
+//{
+//    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+//    var roles = new[] { "Admin", "Teacher", "Student" };
+//    foreach (var role in roles)
+//    {
+//        if (await roleManager.RoleExistsAsync(role))
+//            await roleManager.CreateAsync(new IdentityRole(role));
+//    }
+//}
 SeedData.EnsurePopulated(app);
 
 app.Run();

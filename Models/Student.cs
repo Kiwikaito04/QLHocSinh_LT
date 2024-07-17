@@ -14,7 +14,7 @@ namespace QLHocSinh_LT.Models
         public string HoTen { get; set; } = string.Empty;
 
         [DisplayName("Giới tính")]
-        public string? GioiTinh { get; set; }
+        public string GioiTinh { get; set; } = string.Empty;
 
         [DisplayName("Ngày sinh")]
         [Required(ErrorMessage = "Ngày sinh là bắt buộc.")]
@@ -26,18 +26,13 @@ namespace QLHocSinh_LT.Models
         [StringLength(200, ErrorMessage = "Địa chỉ không được vượt quá 200 ký tự.")]
         public string DiaChi { get; set; } = string.Empty;
 
-        //[Required(ErrorMessage = "Email là bắt buộc.")]
-        //[EmailAddress(ErrorMessage = "Email không hợp lệ.")]
-        //public string Email { get; set; } = string.Empty;
+        [DisplayName("Email")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
+        public string? Email { get; set; }
 
-        //[Required(ErrorMessage = "Số điện thoại là bắt buộc.")]
-        //[Phone(ErrorMessage = "Số điện thoại không hợp lệ.")]
-        //public string SDT { get; set; } = string.Empty;
-
-        [DisplayName("Mật khẩu")]
-        [Required(ErrorMessage = "Mật khẩu là bắt buộc.")]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "Mật khẩu phải từ 6 đến 100 ký tự.")]
-        public string Password { get; set; } = string.Empty;
+        [DisplayName("Số điện thoại")]
+        [Phone(ErrorMessage = "Số điện thoại không hợp lệ.")]
+        public string SDT { get; set; } = string.Empty;
 
         [DisplayName("Lớp học")]
         [Required(ErrorMessage = "Lớp học là bắt buộc.")]
@@ -45,8 +40,16 @@ namespace QLHocSinh_LT.Models
 
         [DisplayName("Điểm trung bình")]
         [Range(0, 10, ErrorMessage = "Điểm trung bình phải nằm trong khoảng từ 0 đến 10.")]
+        [DefaultValue(0)]
         public double DiemTrungBinh { get; set; }
 
+
+        // Foreign Key
+        public string IdentityUserId { get; set; }
+
+        // Navigation properties
+        public ApplicationUser IdentityUser { get; set; }
+        public ICollection<Grade> Grades { get; set; }
     }
 
     public interface IStudentRepository

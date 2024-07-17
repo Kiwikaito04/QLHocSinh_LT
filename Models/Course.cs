@@ -17,11 +17,15 @@ namespace QLHocSinh_LT.Models
         public int TinChi { get; set; }
 
         [DisplayName("Mô tả")]
-        public string? Mota { get; set; }
+        public string? MoTa { get; set; }
 
 
+        // Foreign Key
         public int FacultyId { get; set; }
-        public Faculty? Faculty { get; set; }
+
+        // Navigation properties
+        public Faculty Faculty { get; set; }
+        public ICollection<Grade> Grades { get; set; }
     }
 
     public interface ICourseRepository

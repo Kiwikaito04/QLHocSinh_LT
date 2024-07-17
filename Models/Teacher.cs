@@ -13,7 +13,7 @@ namespace QLHocSinh_LT.Models
         public string HoTen { get; set; } = string.Empty;
 
         [DisplayName("Giới tính")]
-        public string? GioiTinh { get; set; }
+        public string GioiTinh { get; set; } = string.Empty;
 
         [DisplayName("Ngày sinh")]
         [Required(ErrorMessage = "Ngày sinh là bắt buộc.")]
@@ -25,10 +25,24 @@ namespace QLHocSinh_LT.Models
         [StringLength(200, ErrorMessage = "Địa chỉ không được vượt quá 200 ký tự.")]
         public string DiaChi { get; set; } = string.Empty;
 
-        [DisplayName("Mật khẩu")]
-        [Required(ErrorMessage = "Mật khẩu là bắt buộc.")]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "Mật khẩu phải từ 6 đến 100 ký tự.")]
-        public string Password { get; set; } = string.Empty;
+        [DisplayName("Email")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
+        public string? Email { get; set; }
+
+        [DisplayName("Số điện thoại")]
+        [Phone(ErrorMessage = "Số điện thoại không hợp lệ.")]
+        public string SDT { get; set; } = string.Empty;
+
+
+        // Foreign Key
+        public int FacultyId { get; set; }
+        public string IdentityUserId { get; set; }
+
+        // Navigation properties
+        public Faculty Faculty { get; set; }
+        public ApplicationUser IdentityUser { get; set; }
+        public ICollection<Course> Courses { get; set; }
+        public ICollection<Grade> Grades { get; set; }
     }
 
     public interface ITeacherRepository

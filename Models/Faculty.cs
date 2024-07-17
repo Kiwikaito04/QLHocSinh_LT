@@ -16,7 +16,9 @@ namespace QLHocSinh_LT.Models
         public string? MoTa { get; set; }
 
 
-        public ICollection<Course>? Courses { get; set; }
+        // Navigation properties
+        public ICollection<Teacher> Teachers { get; set; }
+        public ICollection<Course> Courses { get; set; }
     }
 
     public interface IFacultyRepository

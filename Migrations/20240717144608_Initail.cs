@@ -63,42 +63,6 @@ namespace QLHocSinh_LT.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Students",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    HoTen = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    GioiTinh = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NgaySinh = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DiaChi = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    LopHoc = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DiemTrungBinh = table.Column<double>(type: "float", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Students", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Teachers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    HoTen = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    GioiTinh = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NgaySinh = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DiaChi = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teachers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -205,6 +169,65 @@ namespace QLHocSinh_LT.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HoTen = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    GioiTinh = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NgaySinh = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DiaChi = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SDT = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LopHoc = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DiemTrungBinh = table.Column<double>(type: "float", nullable: false),
+                    IdentityUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Students_AspNetUsers_IdentityUserId",
+                        column: x => x.IdentityUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Teachers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HoTen = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    GioiTinh = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NgaySinh = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DiaChi = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SDT = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FacultyId = table.Column<int>(type: "int", nullable: false),
+                    IdentityUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teachers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Teachers_AspNetUsers_IdentityUserId",
+                        column: x => x.IdentityUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Teachers_Faculties_FacultyId",
+                        column: x => x.FacultyId,
+                        principalTable: "Faculties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Courses",
                 columns: table => new
                 {
@@ -212,8 +235,9 @@ namespace QLHocSinh_LT.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Ten = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TinChi = table.Column<int>(type: "int", nullable: false),
-                    Mota = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FacultyId = table.Column<int>(type: "int", nullable: false)
+                    MoTa = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FacultyId = table.Column<int>(type: "int", nullable: false),
+                    TeacherId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -224,6 +248,43 @@ namespace QLHocSinh_LT.Migrations
                         principalTable: "Faculties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Courses_Teachers_TeacherId",
+                        column: x => x.TeacherId,
+                        principalTable: "Teachers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Grades",
+                columns: table => new
+                {
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    TeacherId = table.Column<int>(type: "int", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    Score = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Grades", x => new { x.StudentId, x.TeacherId, x.CourseId });
+                    table.ForeignKey(
+                        name: "FK_Grades_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Grades_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Grades_Teachers_TeacherId",
+                        column: x => x.TeacherId,
+                        principalTable: "Teachers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -269,6 +330,36 @@ namespace QLHocSinh_LT.Migrations
                 name: "IX_Courses_FacultyId",
                 table: "Courses",
                 column: "FacultyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_TeacherId",
+                table: "Courses",
+                column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Grades_CourseId",
+                table: "Grades",
+                column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Grades_TeacherId",
+                table: "Grades",
+                column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_IdentityUserId",
+                table: "Students",
+                column: "IdentityUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teachers_FacultyId",
+                table: "Teachers",
+                column: "FacultyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teachers_IdentityUserId",
+                table: "Teachers",
+                column: "IdentityUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -289,6 +380,12 @@ namespace QLHocSinh_LT.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Grades");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
                 name: "Courses");
 
             migrationBuilder.DropTable(
@@ -296,9 +393,6 @@ namespace QLHocSinh_LT.Migrations
 
             migrationBuilder.DropTable(
                 name: "Teachers");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

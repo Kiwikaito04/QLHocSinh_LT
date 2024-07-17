@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using QLHocSinh_LT.Models;
 using QLHocSinh_LT.Models.ViewModels.IU;
 
 namespace QLHocSinh_LT.Controllers
 {
     public class AuthorizedController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         public AuthorizedController(
-            SignInManager<IdentityUser> signInManager, 
-            UserManager<IdentityUser> userManager)
+            SignInManager<ApplicationUser> signInManager, 
+            UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;

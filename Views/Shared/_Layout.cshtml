@@ -6,9 +6,10 @@
     <title>@ViewData["Title"] - Dashboard</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/font-awesome/css/all.css" />
-    @if (PageData.ContainsKey("StyleSheetPath"))
+    @* <link rel="stylesheet" href="~/css/site.css" /> *@
+    @if (ViewData.ContainsKey("StyleSheetPath"))
     {
-        <link rel="stylesheet" href="@PageData["StyleSheetPath"]" asp-append-version="true" />
+    <link rel="stylesheet" href="@ViewData["StyleSheetPath"]" asp-append-version="true" />
     }
 
 </head>

@@ -12,7 +12,7 @@ using QLHocSinh_LT.Models;
 namespace QLHocSinh_LT.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240716205254_Initail")]
+    [Migration("20240717132302_Initail")]
     partial class Initail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -222,7 +222,7 @@ namespace QLHocSinh_LT.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("QLHocSinh_LT.Models.CourseF.Course", b =>
+            modelBuilder.Entity("QLHocSinh_LT.Models.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -250,7 +250,7 @@ namespace QLHocSinh_LT.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("QLHocSinh_LT.Models.FacultyF.Faculty", b =>
+            modelBuilder.Entity("QLHocSinh_LT.Models.Faculty", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -270,7 +270,7 @@ namespace QLHocSinh_LT.Migrations
                     b.ToTable("Faculties");
                 });
 
-            modelBuilder.Entity("QLHocSinh_LT.Models.StudentF.Student", b =>
+            modelBuilder.Entity("QLHocSinh_LT.Models.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -311,7 +311,7 @@ namespace QLHocSinh_LT.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("QLHocSinh_LT.Models.TeacherF.Teacher", b =>
+            modelBuilder.Entity("QLHocSinh_LT.Models.Teacher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -396,9 +396,9 @@ namespace QLHocSinh_LT.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("QLHocSinh_LT.Models.CourseF.Course", b =>
+            modelBuilder.Entity("QLHocSinh_LT.Models.Course", b =>
                 {
-                    b.HasOne("QLHocSinh_LT.Models.FacultyF.Faculty", "Faculty")
+                    b.HasOne("QLHocSinh_LT.Models.Faculty", "Faculty")
                         .WithMany("Courses")
                         .HasForeignKey("FacultyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -407,7 +407,7 @@ namespace QLHocSinh_LT.Migrations
                     b.Navigation("Faculty");
                 });
 
-            modelBuilder.Entity("QLHocSinh_LT.Models.FacultyF.Faculty", b =>
+            modelBuilder.Entity("QLHocSinh_LT.Models.Faculty", b =>
                 {
                     b.Navigation("Courses");
                 });

@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using QLHocSinh_LT.Models;
-using QLHocSinh_LT.Models.StudentF;
 using QLHocSinh_LT.Models.ViewModels;
 
 namespace QLHocSinh_LT.Controllers;

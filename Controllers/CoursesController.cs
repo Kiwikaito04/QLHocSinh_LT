@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using QLHocSinh_LT.Models.CourseF;
+using QLHocSinh_LT.Models;
 using QLHocSinh_LT.Models.ViewModels;
 
 namespace QLHocSinh_LT.Controllers

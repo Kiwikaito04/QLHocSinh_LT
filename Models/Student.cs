@@ -1,7 +1,8 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace QLHocSinh_LT.Models.StudentF
+namespace QLHocSinh_LT.Models
 {
     public class Student
     {
@@ -46,5 +47,50 @@ namespace QLHocSinh_LT.Models.StudentF
         [Range(0, 10, ErrorMessage = "Điểm trung bình phải nằm trong khoảng từ 0 đến 10.")]
         public double DiemTrungBinh { get; set; }
 
+    }
+
+    public interface IStudentRepository
+    {
+        IQueryable<Student> Students { get; }
+        Task<IEnumerable<Student>> GetAllStudentsAsync();
+        Task<Student> GetStudentByIdAsync(int id);
+        Task AddStudentAsync(Student student);
+        void UpdateStudent(Student student);
+        Task DeleteStudentAsync(int id);
+        Task SaveAsync();
+    }
+
+    public class EFStudentRepository : IStudentRepository
+    {
+        private MyDbContext _context;
+        public EFStudentRepository(MyDbContext ctx)
+        {
+            _context = ctx;
+        }
+        public IQueryable<Student> Students => _context.Students;
+
+        public async Task<IEnumerable<Student>> GetAllStudentsAsync()
+            => await _context.Students.ToListAsync();
+
+        public async Task<Student> GetStudentByIdAsync(int id)
+            => await _context.Students.FindAsync(id);
+
+        public async Task AddStudentAsync(Student student)
+            => await _context.Students.AddAsync(student);
+
+        public void UpdateStudent(Student student)
+            => _context.Students.Update(student);
+
+        public async Task DeleteStudentAsync(int id)
+        {
+            var student = await _context.Students.FindAsync(id);
+            if (student != null)
+            {
+                _context.Students.Remove(student);
+            }
+        }
+
+        public async Task SaveAsync()
+            => await _context.SaveChangesAsync();
     }
 }

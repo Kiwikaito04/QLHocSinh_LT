@@ -1,5 +1,4 @@
-﻿using QLHocSinh_LT.Models.CourseF;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace QLHocSinh_LT.Models.ViewModels
 {

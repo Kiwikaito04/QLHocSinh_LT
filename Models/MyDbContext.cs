@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using QLHocSinh_LT.Models.CourseF;
-using QLHocSinh_LT.Models.FacultyF;
-using QLHocSinh_LT.Models.StudentF;
-using QLHocSinh_LT.Models.TeacherF;
 
 namespace QLHocSinh_LT.Models
 {

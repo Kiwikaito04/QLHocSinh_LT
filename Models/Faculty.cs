@@ -1,8 +1,34 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
-namespace QLHocSinh_LT.Models.FacultyF
+namespace QLHocSinh_LT.Models
 {
+    //Khoa
+    public class Faculty
+    {
+        public int Id { get; set; }
+
+        [DisplayName("Tên khoa")]
+        [Required(ErrorMessage = "Tên khoa là bắt buộc.")]
+        public string Ten { get; set; } = string.Empty;
+
+        [DisplayName("Mô tả")]
+        public string? MoTa { get; set; }
+
+
+        public ICollection<Course>? Courses { get; set; }
+    }
+
+    public interface IFacultyRepository
+    {
+        IQueryable<Faculty> Faculties { get; }
+        Faculty GetFacultyById(int id);
+        void AddFaculty(Faculty faculty);
+        void UpdateFaculty(Faculty faculty);
+        void DeleteFaculty(int id);
+        void Save();
+    }
+
     public class EFFacultyRepository : IFacultyRepository
     {
         private MyDbContext _context;
@@ -31,4 +57,5 @@ namespace QLHocSinh_LT.Models.FacultyF
 
         public void Save() => _context.SaveChanges();
     }
+
 }

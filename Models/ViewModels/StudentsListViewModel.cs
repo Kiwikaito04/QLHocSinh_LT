@@ -1,6 +1,4 @@
-﻿using QLHocSinh_LT.Models.StudentF;
-
-namespace QLHocSinh_LT.Models.ViewModels
+﻿namespace QLHocSinh_LT.Models.ViewModels
 {
     public class StudentsListViewModel
     {

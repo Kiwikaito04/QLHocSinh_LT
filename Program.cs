@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models;
-using QLHocSinh_LT.Models.StudentF;
-using QLHocSinh_LT.Models.CourseF;
-using QLHocSinh_LT.Models.FacultyF;
 using Microsoft.AspNetCore.Identity;
-using QLHocSinh_LT.Models.TeacherF;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,0 +1,28 @@
+﻿@model CoursesListViewModel
+<h2>Danh sách môn học</h2>
+<p>
+    <partial name="Btn-Create" />
+</p>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên môn học</th>
+            <th>Số tín chỉ</th>
+            <th>Khoa</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model?.Courses ?? Enumerable.Empty<Course>())
+        {
+            <tr>
+                <td>@item.Ten</td>
+                <td>@item.TinChi</td>
+                <td>@item.Faculty?.Ten</td>
+                <td><partial name="IndexBtn" model="item" /></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<partial name="PagingBtn" />

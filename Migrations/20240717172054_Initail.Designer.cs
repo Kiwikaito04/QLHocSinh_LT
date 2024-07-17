@@ -12,7 +12,7 @@ using QLHocSinh_LT.Models;
 namespace QLHocSinh_LT.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240717144608_Initail")]
+    [Migration("20240717172054_Initail")]
     partial class Initail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -338,8 +338,8 @@ namespace QLHocSinh_LT.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("SDT")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
@@ -385,7 +385,8 @@ namespace QLHocSinh_LT.Migrations
 
                     b.Property<string>("SDT")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 

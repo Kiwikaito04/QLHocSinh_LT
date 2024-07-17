@@ -179,7 +179,7 @@ namespace QLHocSinh_LT.Migrations
                     NgaySinh = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SDT = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SDT = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     LopHoc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiemTrungBinh = table.Column<double>(type: "float", nullable: false),
                     IdentityUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
@@ -206,7 +206,7 @@ namespace QLHocSinh_LT.Migrations
                     NgaySinh = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SDT = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SDT = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     FacultyId = table.Column<int>(type: "int", nullable: false),
                     IdentityUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },

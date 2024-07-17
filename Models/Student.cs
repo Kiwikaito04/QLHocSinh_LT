@@ -31,8 +31,8 @@ namespace QLHocSinh_LT.Models
         public string? Email { get; set; }
 
         [DisplayName("Số điện thoại")]
-        [Phone(ErrorMessage = "Số điện thoại không hợp lệ.")]
-        public string SDT { get; set; } = string.Empty;
+        [StringLength(10, ErrorMessage = "Số điện thoại không hợp lệ.")]
+        public string? SDT { get; set; }
 
         [DisplayName("Lớp học")]
         [Required(ErrorMessage = "Lớp học là bắt buộc.")]

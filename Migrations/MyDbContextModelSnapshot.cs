@@ -336,8 +336,8 @@ namespace QLHocSinh_LT.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("SDT")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
@@ -383,7 +383,8 @@ namespace QLHocSinh_LT.Migrations
 
                     b.Property<string>("SDT")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 

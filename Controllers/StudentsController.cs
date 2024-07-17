@@ -6,7 +6,7 @@ using QLHocSinh_LT.Models.ViewModels;
 
 namespace QLHocSinh_LT.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class StudentsController : Controller
     {
         private IStudentRepository repo;

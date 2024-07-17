@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models.CourseF;
 using QLHocSinh_LT.Models.ViewModels;
 
 namespace QLHocSinh_LT.Controllers
 {
+    [Authorize]
     public class CoursesController : Controller
     {
         private ICourseRepository repo;
@@ -19,6 +22,7 @@ namespace QLHocSinh_LT.Controllers
             {
                 Courses = repo.Courses
                     .OrderBy(s => s.Id)
+                    .Include(f => f.Faculty)
                     .Skip((currentPage - 1) * PageSize)
                     .Take(PageSize),
                 PagingInfo = new PagingInfo

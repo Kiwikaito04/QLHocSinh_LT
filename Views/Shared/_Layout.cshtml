@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Dashboard</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/QLHocSinh_LT.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/font-awesome/css/all.css" />
+    @if (PageData.ContainsKey("StyleSheetPath"))
+    {
+        <link rel="stylesheet" href="@PageData["StyleSheetPath"]" asp-append-version="true" />
+    }
+
 </head>
 <body>
     <header>
@@ -64,17 +68,76 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>TRƯỜNG HUFLIT</h3>
+            </div>
+            <ul class="list-unstyled components">
+                <p>Quản lý học sinh</p>
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li>
+                            <a href="#">Log in</a>
+                        </li>
+                        <li>
+                            <a href="#">Sign up</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-chalkboard-teacher"></i> Teachers</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-user-graduate"></i> Students</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-building"></i>Faculties</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-clipboard-list"></i>Courses</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-user-tie"></i>Admin</a>
+                </li>
+            </ul>
+
+        </nav>
+        <div id="content">
+            <nav class="navbar navbar-expand-lg bg-light navbar-light">
+                <div class="container-fluid">
+                    <button class="btn btn-info" type="button" id="sidebarCollapse">
+                        <i class="fas fa-align-left"></i><span>Toggle Sidebar</span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active"><a class="nav-link" href="#">Page</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Page</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Page</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Page</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <h2> @RenderBody() </h2>
+        </div>
+    </div>
+    @* <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            
         </main>
     </div>
+ *@
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - QLHocSinh_LT - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

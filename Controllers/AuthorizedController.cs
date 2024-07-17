@@ -55,6 +55,9 @@ namespace QLHocSinh_LT.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult AccessDenied() 
+            => View();
+
         //public async Task OnGetAsync(string returnUrl = null)
         //{
         //    if(User.Identity.IsAuthenticated)

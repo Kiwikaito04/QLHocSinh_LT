@@ -2,8 +2,9 @@
 @model TeachersListViewModel
 <h2>Danh sách giáo viên</h2>
 <p>
-    <a asp-action="Create" class="btn btn-success">Thêm giáo viên mới</a>
+    <partial name="Btn-Create" />
 </p>
+<hr />
 <table class="table">
     <thead>
         <tr>
@@ -27,12 +28,10 @@
                     @item.NgaySinh.ToShortDateString()
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Sửa</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success">Xem</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Xoá</a>
+                    <partial name="IndexBtn" model="item" />
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<div page-model="@Model?.PagingInfo" page-action="Index"></div>
+<partial name="PagingBtn" />

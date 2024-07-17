@@ -70,7 +70,7 @@ namespace QLHocSinh_LT.Controllers
         {
             if (ModelState.IsValid)
             {
-                repo.AddStudentAsync(student);
+                await repo.AddStudentAsync(student);
                 await repo.SaveAsync();
                 return RedirectToAction(nameof(Index));
             }

@@ -1,5 +1,4 @@
-﻿@using QLHocSinh_LT.Models.TeacherF
-@model Teacher
+﻿@model Teacher
 
 <h1>Thông tin chi tiết Giáo Viên</h1>
 
@@ -22,6 +21,6 @@
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Sửa</a> | 
-    <a asp-action="Index" class="btn btn-secondary">Quay về</a>
+    <partial name="Btn-Edit" model="@Model" /> |
+    <partial name="Btn-Back" />
 </div>

@@ -1,5 +1,4 @@
-﻿@using QLHocSinh_LT.Models.TeacherF
-@model Teacher
+﻿@model Teacher
 
 <h1>Xoá Giáo Viên</h1>
 
@@ -24,7 +23,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Xác nhận" class="btn btn-danger" /> | 
-        <a asp-action="Index" class="btn btn-secondary">Quay về</a>
+        <input type="submit" value="Xác nhận" class="btn btn-danger" /> |
+        <partial name="Btn-Back" />
     </form>
 </div>

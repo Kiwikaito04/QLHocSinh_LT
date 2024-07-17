@@ -46,7 +46,7 @@ namespace QLHocSinh_LT.Controllers
         }
 
         //POST : Authorized/Logout
-        [HttpPost]
+        [HttpPost, ActionName("Logout")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {

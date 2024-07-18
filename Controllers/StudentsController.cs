@@ -7,7 +7,7 @@ using QLHocSinh_LT.Models.ViewModels;
 
 namespace QLHocSinh_LT.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = "Admin")]
     public class StudentsController : Controller
     {
         private IStudentRepository repo;
@@ -57,12 +57,15 @@ namespace QLHocSinh_LT.Controllers
                 return NotFound();
             }
 
-            var student = await repo.GetStudentByIdAsync(id.Value);
+            var student = await repo.Students
+                .Include(s => s.IdentityUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {
                 return NotFound();
             }
 
+            ViewBag.Message = TempData["Message"];
             return View(student);
         }
 
@@ -135,7 +138,7 @@ namespace QLHocSinh_LT.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, 
-            [Bind("Id,HoTen,GioiTinh,NgaySinh,DiaChi,Password,LopHoc,DiemTrungBinh")] 
+            [Bind("Id,HoTen,GioiTinh,NgaySinh,DiaChi,LopHoc,Email,SDT,DiemTrungBinh")] 
             Student student)
         {
             if (id != student.Id)
@@ -147,7 +150,23 @@ namespace QLHocSinh_LT.Controllers
             {
                 try
                 {
-                    repo.UpdateStudent(student);
+                    var existingStudent = await repo.GetStudentByIdAsync(id);
+                    if (existingStudent == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Update student properties
+                    existingStudent.HoTen = student.HoTen;
+                    existingStudent.GioiTinh = student.GioiTinh;
+                    existingStudent.NgaySinh = student.NgaySinh;
+                    existingStudent.DiaChi = student.DiaChi;
+                    existingStudent.LopHoc = student.LopHoc;
+                    existingStudent.Email = student.Email;
+                    existingStudent.SDT = student.SDT;
+
+                    // Update the student record in the database
+                    repo.UpdateStudent(existingStudent);
                     await repo.SaveAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -166,6 +185,44 @@ namespace QLHocSinh_LT.Controllers
             return View(student);
         }
 
+        // POST: Student/ResetPassword/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(int id)
+        {
+            var student = await repo.GetStudentByIdAsync(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.FindByIdAsync(student.IdentityUserId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            string password = student.NgaySinh.ToString("dd/MM/yyyy").Replace("/", "");
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var resetResult = await _userManager.ResetPasswordAsync(user, token, password);
+
+            if (resetResult.Succeeded)
+            {
+                TempData["Message"] = "Password reset to default successfully.";
+                return RedirectToAction(nameof(Details), new { id = student.Id });
+            }
+            else
+            {
+                foreach (var error in resetResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View("Edit", student);
+        }
+
         // GET: Students/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -174,7 +231,9 @@ namespace QLHocSinh_LT.Controllers
                 return NotFound();
             }
 
-            var student = await repo.GetStudentByIdAsync(id.Value);
+            var student = await repo.Students
+                .Include(s => s.IdentityUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {
                 return NotFound();
@@ -188,8 +247,30 @@ namespace QLHocSinh_LT.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var student = await repo.GetStudentByIdAsync(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.FindByIdAsync(student.IdentityUserId);
+            if (user != null)
+            {
+                var result = await _userManager.DeleteAsync(user);
+                if (!result.Succeeded)
+                {
+                    // Handle the error
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View(student);
+                }
+            }
+
             await repo.DeleteStudentAsync(id);
             await repo.SaveAsync();
+            ViewBag.Message = "Xoá học sinh thành công";
             return RedirectToAction(nameof(Index));
         }
     }

@@ -4,6 +4,12 @@
     <partial name="Btn-Create" />
 </p>
 <hr />
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <div class="alert alert-success">
+        @ViewBag.Message
+    </div>
+}
 <table class="table">
     <thead>
         <tr>

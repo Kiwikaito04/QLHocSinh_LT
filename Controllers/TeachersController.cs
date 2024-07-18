@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models;
@@ -10,28 +11,43 @@ namespace QLHocSinh_LT.Controllers
     public class TeachersController : Controller
     {
         private ITeacherRepository repo;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         public int PageSize = 10;
 
-        public TeachersController(ITeacherRepository repo)
+        public TeachersController(
+            ITeacherRepository repo,
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             this.repo = repo;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: Teachers
-        public IActionResult Index(int currentPage = 1)
-            => View(new TeachersListViewModel
+        public async Task<IActionResult> Index(int currentPage = 1)
+        {
+            var totalItems = await repo.Teachers.CountAsync();
+
+            var viewModel = new TeachersListViewModel
             {
-                Teachers = repo.Teachers
-                    .OrderBy(x => x.Id)
-                    .Skip((currentPage - 1) * PageSize)
-                    .Take(PageSize),
+                Teachers = await repo.Teachers
+                                    .OrderBy(s => s.Id)
+                                    .Include(s => s.IdentityUser)
+                                    .Skip((currentPage - 1) * PageSize)
+                                    .Take(PageSize)
+                                    .ToListAsync(),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = currentPage,
                     ItemsPerPage = PageSize,
-                    TotalItems = repo.Teachers.Count()
+                    TotalItems = totalItems
                 }
-            });
+            };
+
+            return View(viewModel);
+        }
 
         // GET: Teachers/Details/5
         public IActionResult Details(int? id)
@@ -41,7 +57,7 @@ namespace QLHocSinh_LT.Controllers
                 return NotFound();
             }
 
-            var teacher = repo.GetTeacherById(id.Value);
+            var teacher = repo.GetTeacherByIdAsync(id.Value);
             if (teacher == null)
             {
                 return NotFound();
@@ -62,8 +78,8 @@ namespace QLHocSinh_LT.Controllers
         {
             if (ModelState.IsValid)
             {
-                repo.AddTeacher(teacher);
-                repo.Save();
+                repo.AddTeacherAsync(teacher);
+                repo.SaveAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(teacher);
@@ -77,7 +93,7 @@ namespace QLHocSinh_LT.Controllers
                 return NotFound();
             }
 
-            var teacher = repo.GetTeacherById(id.Value);
+            var teacher = repo.GetTeacherByIdAsync(id.Value);
             if (teacher == null)
             {
                 return NotFound();
@@ -102,11 +118,11 @@ namespace QLHocSinh_LT.Controllers
                 try
                 {
                     repo.UpdateTeacher(teacher);
-                    repo.Save();
+                    repo.SaveAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (repo.GetTeacherById(teacher.Id) == null)
+                    if (repo.GetTeacherByIdAsync(teacher.Id) == null)
                     {
                         return NotFound();
                     }
@@ -127,7 +143,7 @@ namespace QLHocSinh_LT.Controllers
                 return NotFound();
             }
 
-            var teacher = repo.GetTeacherById(id.Value);
+            var teacher = repo.GetTeacherByIdAsync(id.Value);
             if (teacher == null)
             {
                 return NotFound();
@@ -141,8 +157,8 @@ namespace QLHocSinh_LT.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            repo.DeleteTeacher(id);
-            repo.Save();
+            repo.DeleteTeacherAsync(id);
+            repo.SaveAsync();
             return RedirectToAction(nameof(Index));
         }
     }

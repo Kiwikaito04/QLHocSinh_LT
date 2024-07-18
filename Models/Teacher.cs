@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace QLHocSinh_LT.Models
@@ -48,11 +49,12 @@ namespace QLHocSinh_LT.Models
     public interface ITeacherRepository
     {
         IQueryable<Teacher> Teachers { get; }
-        Teacher GetTeacherById(int id);
-        void AddTeacher(Teacher teacher);
+        Task<IEnumerable<Teacher>> GetAllTeachersAsync();
+        Task<Teacher> GetTeacherByIdAsync(int id);
+        Task AddTeacherAsync(Teacher teacher);
         void UpdateTeacher(Teacher teacher);
-        void DeleteTeacher(int id);
-        void Save();
+        Task DeleteTeacherAsync(int id);
+        Task SaveAsync();
     }
 
     public class EFTeacherRepository : ITeacherRepository
@@ -64,35 +66,30 @@ namespace QLHocSinh_LT.Models
         }
         public IQueryable<Teacher> Teachers => _context.Teachers;
 
-        public IEnumerable<Teacher> GetAllTeachers() => _context.Teachers.ToList();
+        public async Task<IEnumerable<Teacher>> GetAllTeachersAsync() 
+            => await _context.Teachers.ToListAsync();
 
-        public void AddTeacher(Teacher teacher)
-        {
-            _context.Teachers.Add(teacher);
-        }
+        public async Task<Teacher> GetTeacherByIdAsync(int id) 
+            => await _context.Teachers.FindAsync(id);
 
-        public void DeleteTeacher(int id)
+        public async Task AddTeacherAsync(Teacher teacher) 
+            => await _context.Teachers.AddAsync(teacher);
+
+        public void UpdateTeacher(Teacher teacher) 
+            => _context.Teachers.Update(teacher);
+
+        public async Task DeleteTeacherAsync(int id)
         {
-            var teacher = _context.Teachers.Find(id);
+            var teacher = await _context.Teachers.FindAsync(id);
             if (teacher != null)
             {
                 _context.Teachers.Remove(teacher);
             }
         }
 
-        public Teacher GetTeacherById(int id)
-        {
-            return _context.Teachers.Find(id);
-        }
-        public void UpdateTeacher(Teacher teacher)
-        {
-            _context.Teachers.Update(teacher);
-        }
 
-        public void Save()
-        {
-            _context.SaveChanges();
-        }
+        public async Task SaveAsync() 
+            => await _context.SaveChangesAsync();
 
     }
 }

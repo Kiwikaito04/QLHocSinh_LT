@@ -262,7 +262,7 @@ namespace QLHocSinh_LT.Migrations
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     TeacherId = table.Column<int>(type: "int", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
-                    Score = table.Column<int>(type: "int", nullable: false)
+                    Score = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {

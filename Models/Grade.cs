@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore;
+using QLHocSinh_LT.Models.ViewModels;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace QLHocSinh_LT.Models
@@ -10,11 +12,83 @@ namespace QLHocSinh_LT.Models
         public int CourseId { get; set; }
         [DisplayName("Điểm")]
         [Required(ErrorMessage = "Điểm là bắt buộc")]
-        public int Score { get; set; }
+        [Range(0,10,ErrorMessage = "Điểm phải là số thập phân từ 0 đến 10.")]
+        public float Score { get; set; }
 
         // Navigation properties
         public Student Student { get; set; }
         public Teacher Teacher { get; set; }
         public Course Course { get; set; }
+    }
+
+    public interface IGradeRepository
+    {
+        Task<IEnumerable<Course>> GetCoursesByTeacherAsync(string teacherId);
+        Task<IEnumerable<Student>> GetAllStudentsAsync();
+        Task<IEnumerable<StudentWithGrade>> GetStudentsWithGradesAsync(int courseId, int teacherId);
+        Task<Teacher> GetTeacherByUserIdAsync(string teacherId);
+        Task<Grade> GetGradeAsync(int courseId, int studentId, int teacherId);
+        Task AddGradeAsync(Grade grade);
+        void UpdateGradeAsync(Grade grade);
+        Task SaveAsync();
+    }
+
+    public class EFGradeRepository : IGradeRepository
+    {
+        private MyDbContext _context;
+        public EFGradeRepository(MyDbContext ctx)
+        {
+            _context = ctx;
+        }
+
+        public async Task<IEnumerable<Course>> GetCoursesByTeacherAsync(string teacherId)
+        {
+            var teacher = await _context.Teachers.Include(t => t.Faculty).FirstOrDefaultAsync(t => t.IdentityUserId == teacherId);
+            if (teacher == null)
+            {
+                return new List<Course>();
+            }
+
+            return await _context.Courses
+                .Where(c => c.FacultyId == teacher.FacultyId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Student>> GetAllStudentsAsync() 
+            => await _context.Students.ToListAsync();
+
+        public async Task<IEnumerable<StudentWithGrade>> GetStudentsWithGradesAsync(int courseId, int teacherId)
+        {
+            var students = await _context.Students.ToListAsync();
+            var grades = await _context.Grades
+                .Where(g => g.CourseId == courseId && g.TeacherId == teacherId)
+                .ToListAsync();
+
+            var studentWithGrades = students.Select(student => new StudentWithGrade
+            {
+                Student = student,
+                Score = grades.FirstOrDefault(g => g.StudentId == student.Id)?.Score
+            });
+
+            return studentWithGrades;
+        }
+
+        public async Task<Teacher> GetTeacherByUserIdAsync(string teacherId)
+            => await _context.Teachers.FirstOrDefaultAsync(t => t.IdentityUserId == teacherId);
+
+        public async Task<Grade> GetGradeAsync(int courseId, int studentId, int teacherId) 
+            => await _context.Grades
+                .FirstOrDefaultAsync(g => g.CourseId == courseId &&
+                                    g.StudentId == studentId &&
+                                    g.TeacherId == teacherId);
+
+        public async Task AddGradeAsync(Grade grade) 
+            => await _context.Grades.AddAsync(grade);
+
+        public void UpdateGradeAsync(Grade grade) 
+            => _context.Grades.Update(grade);
+
+        public async Task SaveAsync() 
+            => await _context.SaveChangesAsync();
     }
 }

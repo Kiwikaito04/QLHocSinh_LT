@@ -284,8 +284,8 @@ namespace QLHocSinh_LT.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
+                    b.Property<float>("Score")
+                        .HasColumnType("real");
 
                     b.HasKey("StudentId", "TeacherId", "CourseId");
 

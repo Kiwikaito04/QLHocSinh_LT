@@ -12,7 +12,7 @@ using QLHocSinh_LT.Models;
 namespace QLHocSinh_LT.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240717172054_Initail")]
+    [Migration("20240718172707_Initail")]
     partial class Initail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -286,8 +286,8 @@ namespace QLHocSinh_LT.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
+                    b.Property<float>("Score")
+                        .HasColumnType("real");
 
                     b.HasKey("StudentId", "TeacherId", "CourseId");
 

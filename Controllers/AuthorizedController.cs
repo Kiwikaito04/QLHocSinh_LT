@@ -21,8 +21,15 @@ namespace QLHocSinh_LT.Controllers
 
         //GET : Authorized
         [HttpGet]
-        public IActionResult Index() 
-            => View();
+        public IActionResult Index()
+        {
+            if(User.Identity == null)
+                return View();
+            //Nếu đã đăng nhập thì về Index
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+            return View();
+        }
 
         //POST : Authorized
         //ACTION : Login
@@ -36,7 +43,7 @@ namespace QLHocSinh_LT.Controllers
                 if (user != null && (await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false)).Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: model.RememberMe);
-                    return RedirectToAction("Index", "Students");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

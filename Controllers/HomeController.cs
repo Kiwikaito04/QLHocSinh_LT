@@ -7,5 +7,6 @@ namespace QLHocSinh_LT.Controllers;
 
 public class HomeController : Controller
 {
-
+    public IActionResult Index()
+        => View();
 }

@@ -1,0 +1,25 @@
+﻿@model CUGradeVM
+
+@{
+    ViewData["Title"] = "Input Grade";
+}
+
+<h2>Input Grade</h2>
+
+<form asp-action="CreateOrEdit">
+    <div class="form-group">
+        <label asp-for="Score" class="control-label"></label>
+        <input asp-for="Score" class="form-control" />
+        <span asp-validation-for="Score" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="CourseId" />
+    <input type="hidden" asp-for="StudentId" />
+    <input type="hidden" asp-for="TeacherId" />
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index" asp-route-courseId="@Model.CourseId">Back to List</a>
+</div>

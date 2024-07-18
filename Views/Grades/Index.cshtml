@@ -1,0 +1,47 @@
+﻿@model QLHocSinh_LT.Models.ViewModels.GradeViewModel
+
+@{
+    ViewData["Title"] = "Student Grades";
+}
+
+<h2>@Model.CourseName - Student Grades</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Students.First().Student.HoTen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Students.First().Student.LopHoc)
+            </th>
+            <th>
+                Grade
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Students)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.LopHoc)
+                </td>
+                <td>
+                    @(item.Score.HasValue ? item.Score.Value.ToString("N2") : "N/A")
+                </td>
+                <td>
+                    <a asp-action="CreateOrEdit" asp-route-courseId="@Model.CourseId" asp-route-studentId="@item.Student.Id" class="btn btn-primary">Input Grade</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="SelectCourse">Back to Courses</a>
+</div>

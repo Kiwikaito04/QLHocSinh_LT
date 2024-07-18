@@ -15,6 +15,7 @@ builder.Services.AddScoped<IStudentRepository, EFStudentRepository>();
 builder.Services.AddScoped<ICourseRepository, EFCourseRepository>();
 builder.Services.AddScoped<IFacultyRepository, EFFacultyRepository>();
 builder.Services.AddScoped<ITeacherRepository, EFTeacherRepository>();
+builder.Services.AddScoped<IGradeRepository, EFGradeRepository>();
 
 //Thêm Identity và các db liên quan cho ứng dụng
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()

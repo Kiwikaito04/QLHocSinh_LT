@@ -35,7 +35,7 @@ namespace QLHocSinh_LT.Models
 
     public class EFGradeRepository : IGradeRepository
     {
-        private MyDbContext _context;
+        private readonly MyDbContext _context;
         public EFGradeRepository(MyDbContext ctx)
         {
             _context = ctx;

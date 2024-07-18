@@ -33,7 +33,7 @@ namespace QLHocSinh_LT.Models
 
     public class EFFacultyRepository : IFacultyRepository
     {
-        private MyDbContext _context;
+        private readonly MyDbContext _context;
         public EFFacultyRepository(MyDbContext ctx)
         {
             _context = ctx;

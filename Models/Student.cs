@@ -65,7 +65,7 @@ namespace QLHocSinh_LT.Models
 
     public class EFStudentRepository : IStudentRepository
     {
-        private MyDbContext _context;
+        private readonly MyDbContext _context;
         public EFStudentRepository(MyDbContext ctx)
         {
             _context = ctx;

@@ -59,7 +59,7 @@ namespace QLHocSinh_LT.Models
 
     public class EFTeacherRepository : ITeacherRepository
     {
-        private MyDbContext _context;
+        private readonly MyDbContext _context;
         public EFTeacherRepository(MyDbContext ctx)
         {
             _context = ctx;

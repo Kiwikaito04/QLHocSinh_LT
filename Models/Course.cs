@@ -40,7 +40,7 @@ namespace QLHocSinh_LT.Models
 
     public class EFCourseRepository : ICourseRepository
     {
-        private MyDbContext _context;
+        private readonly MyDbContext _context;
         public EFCourseRepository(MyDbContext ctx)
         {
             _context = ctx;

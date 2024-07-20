@@ -13,9 +13,6 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
-}
 
 /* DEMO STYLE */
 
@@ -39,7 +36,6 @@ a, a:hover, a:focus {
 }
 
 .navbar {
-    padding: 15px 10px;
     background: #fff;
     border: none;
     border-radius: 0;
@@ -74,8 +70,9 @@ a, a:hover, a:focus {
     min-width: 250px;
     max-width: 250px;
     background: #7386D5;
-    color: #fff;
+    color: #fff !important;
     transition: all 0.3s;
+    margin-top: 52px !important;
 }
 
     #sidebar.active {
@@ -162,6 +159,7 @@ a.article, a.article:hover {
     padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
+    margin-top: 52px;
 }
 
 /* ---------------------------------------------------

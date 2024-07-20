@@ -1,9 +1,9 @@
 ﻿@model LoginViewModel
 <head>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/QLHocSinh_LT.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/font-awesome/css/all.css" />
     <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/font-awesome/css/all.css" />
+    <link rel="stylesheet" href="~/QLHocSinh_LT.styles.css" asp-append-version="true" />
 
 </head>
 <section class="ftco-section">
@@ -30,7 +30,7 @@
                                 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
-                            <div class="form-group d-md-flex">
+                            <div class="form-group d-md-flex justify-content-between">
                                 <div class="w-60 text-left">
                                     <label class="checkbox-wrap checkbox-primary mb-0">
                                         <input asp-for="RememberMe" type="checkbox" class="form-check-input">
@@ -38,8 +38,8 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-                                <div class="w-60 text-sm-right" style="font-size=medium">
-                                    <a href="#">Forgot Password</a>
+                                <div class="w-60 text-sm-right " style="font-size=medium margin-left: auto">
+                                    <a href="#" class="float-right ">Forgot Password</a>
                                 </div>
                             </div>
                             <div asp-validation-summary="All" class="text-danger"></div>

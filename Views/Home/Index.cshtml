@@ -1,6 +1,38 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model InfoViewModel
+
+<h2>Welcome, @Model.Username!</h2>
+
+@if (Model.Student != null)
+{
+    <h3>Thông tin Học sinh</h3>
+    <p>Họ tên: @Model.Student.HoTen</p>
+    <p>Giới tính: @Model.Student.GioiTinh</p>
+    <p>Ngày sinh: @Model.Student.NgaySinh.ToString("dd/MM/yyyy")</p>
+    <p>Địa chỉ: @Model.Student.DiaChi</p>
+    <p>Email: @Model.Student.Email</p>
+    <p>Số điện thoại: @Model.Student.SDT</p>
+    
+
 }
-Ayaya
+else if (Model.Teacher != null)
+{
+    <h3>Thông tin Giáo viên</h3>
+    <p>Họ tên: @Model.Teacher.HoTen</p>
+    <p>Giới tính: @Model.Teacher.GioiTinh</p>
+    <p>Ngày sinh: @Model.Teacher.NgaySinh.ToString("dd/MM/yyyy")</p>
+    <p>Địa chỉ: @Model.Teacher.DiaChi</p>
+    <p>Email: @Model.Teacher.Email</p>
+    <p>Số điện thoại: @Model.Teacher.SDT</p>
+    
+
+}
+else if (Model.IsAdmin)
+{
+    <h3>Welcome Admin</h3>
+    
+
+}
+else
+{
+    <p>User information not found.</p>
+}

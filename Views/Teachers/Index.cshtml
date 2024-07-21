@@ -4,12 +4,21 @@
     <partial name="Btn-Create" />
 </p>
 <hr />
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <div class="alert alert-success">
+        @ViewBag.Message
+    </div>
+}
 <table class="table">
     <thead>
         <tr>
+            <th>Username</th>
             <th>Họ tên</th>
             <th>Giới tính</th>
             <th>Ngày sinh</th>
+            <th>Số điện thoại</th>
+            <th>Khoa</th>
             <th></th>
         </tr>
     </thead>
@@ -18,6 +27,9 @@
         {
             <tr>
                 <td>
+                    @item.IdentityUser.UserName
+                </td>
+                <td>
                     @item.HoTen
                 </td>
                 <td>
@@ -25,6 +37,12 @@
                 </td>
                 <td>
                     @item.NgaySinh.ToShortDateString()
+                </td>
+                <td>
+                    @item.SDT
+                </td>
+                <td>
+                    @item.Faculty.Ten
                 </td>
                 <td>
                     <partial name="IndexBtn" model="item" />

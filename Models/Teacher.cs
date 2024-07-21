@@ -64,13 +64,17 @@ namespace QLHocSinh_LT.Models
         {
             _context = ctx;
         }
-        public IQueryable<Teacher> Teachers => _context.Teachers;
+
+        public IQueryable<Teacher> Teachers 
+            => _context.Teachers.Include(t => t.Faculty);
 
         public async Task<IEnumerable<Teacher>> GetAllTeachersAsync() 
             => await _context.Teachers.ToListAsync();
 
         public async Task<Teacher> GetTeacherByIdAsync(int id) 
-            => await _context.Teachers.FindAsync(id);
+            => await _context.Teachers
+                .Include(s => s.IdentityUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
         public async Task AddTeacherAsync(Teacher teacher) 
             => await _context.Teachers.AddAsync(teacher);

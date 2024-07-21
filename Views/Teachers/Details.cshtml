@@ -5,17 +5,75 @@
 <div>
     <h4>@Model?.HoTen</h4>
     <hr />
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-success">
+            @ViewBag.Message
+        </div>
+    }
     <dl class="row">
 
-        <dt class="col-sm-2">Giới tính</dt>
-        <dd class="col-sm-10">@Model?.GioiTinh</dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HoTen)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HoTen)
+        </dd>
 
-        <dt class="col-sm-2">Ngày sinh</dt>
-        <dd class="col-sm-10">@Model?.NgaySinh</dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GioiTinh)
+        </dd>
 
-        <dt class="col-sm-2">Địa chỉ</dt>
-        <dd class="col-sm-10">@Model?.DiaChi</dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NgaySinh)
+        </dd>
 
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SDT)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SDT)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Faculty.Ten)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Faculty.Ten)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdentityUser.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdentityUser.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            Password
+        </dt>
+        <dd class="col-sm-10">
+            Có cái nịt
+        </dd>
 
     </dl>
 </div>

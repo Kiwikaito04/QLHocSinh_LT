@@ -29,10 +29,32 @@
                 <input asp-for="DiaChi" class="form-control" />
                 <span asp-validation-for="DiaChi" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SDT" class="control-label"></label>
+                <input asp-for="SDT" class="form-control" />
+                <span asp-validation-for="SDT" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FacultyId" class="control-label"></label>
+                <select asp-for="FacultyId" class="form-control" asp-items="ViewBag.Faculties"></select>
+                <span asp-validation-for="FacultyId" class="text-danger"></span>
+            </div>
 
             <div class="form-group">
                 <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
+
+            <div class="form-group">
+                Password: <button type="button" class="btn btn-warning" id="resetPasswordButton">Reset Password to Default</button>
+            </div>
+        </form>
+        <form id="resetPasswordForm" asp-action="ResetPassword" method="post" style="display:none;">
+            <input type="hidden" name="id" value="@Model.Id" />
         </form>
     </div>
 </div>
@@ -40,7 +62,14 @@
     <partial name="Btn-Back" />
 </div>
 @section Scripts {
+    <script>
+        document.getElementById("resetPasswordButton").addEventListener("click", function () {
+            if (confirm("Are you sure you want to reset the password to the default value?")) {
+                document.getElementById("resetPasswordForm").submit();
+            }
+        });
+    </script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-} 
+}

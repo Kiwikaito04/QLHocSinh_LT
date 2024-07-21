@@ -30,6 +30,7 @@ namespace QLHocSinh_LT.Models
         Task<Grade> GetGradeAsync(int courseId, int studentId, int teacherId);
         Task AddGradeAsync(Grade grade);
         void UpdateGradeAsync(Grade grade);
+        Task UpdateStudentAverageScoreAsync(int studentId);
         Task SaveAsync();
     }
 
@@ -87,6 +88,20 @@ namespace QLHocSinh_LT.Models
 
         public void UpdateGradeAsync(Grade grade) 
             => _context.Grades.Update(grade);
+
+        public async Task UpdateStudentAverageScoreAsync(int studentId)
+        {
+            var student = await _context.Students
+                .Include(s => s.Grades)
+                .FirstOrDefaultAsync(s => s.Id == studentId);
+
+            if (student != null && student.Grades.Any())
+            {
+                student.DiemTrungBinh = student.Grades.Average(g => g.Score);
+                _context.Students.Update(student);
+                await _context.SaveChangesAsync();
+            }
+        }
 
         public async Task SaveAsync() 
             => await _context.SaveChangesAsync();

@@ -130,6 +130,7 @@ namespace QLHocSinh_LT.Controllers
                 }
 
                 await repo.SaveAsync();
+                await repo.UpdateStudentAverageScoreAsync(grade.StudentId);
                 return RedirectToAction(nameof(Index), new { courseId = grade.CourseId });
             }
 

@@ -13,16 +13,10 @@ namespace QLHocSinh_LT.Infrastructure
     {
         private IUrlHelperFactory urlHelperFactory;
 
-
-
-
         public PageLinkTagHelper(IUrlHelperFactory helperFactory)
         {
             urlHelperFactory = helperFactory;
         }
-
-
-
 
         [ViewContext]
         [HtmlAttributeNotBound]
@@ -35,8 +29,6 @@ namespace QLHocSinh_LT.Infrastructure
         public string PageClassNormal { get; set; } = String.Empty;
         public string PageClassSelected { get; set; } = String.Empty;
 
-
-
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (ViewContext != null && PageModel != null)
@@ -46,7 +38,8 @@ namespace QLHocSinh_LT.Infrastructure
                 for (int i = 1; i <= PageModel.TotalPages; i++)
                 {
                     TagBuilder tag = new TagBuilder("a");
-                    tag.Attributes["href"] = urlHelper.Action(PageAction, new { currentPage = i });
+                    tag.Attributes["href"] = 
+                        urlHelper.Action(PageAction, new { currentPage = i });
                     if (PageClassesEnabled)
                     {
                         tag.AddCssClass(PageClass);

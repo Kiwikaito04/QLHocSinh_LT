@@ -145,9 +145,7 @@ namespace QLHocSinh_LT.Controllers
             EStudentVM student)
         {
             if (id != student.Id)
-            {
                 return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
@@ -175,13 +173,9 @@ namespace QLHocSinh_LT.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (repo.GetStudentByIdAsync(student.Id) == null)
-                    {
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
                 return RedirectToAction(nameof(Details), new { id = student.Id });
             }

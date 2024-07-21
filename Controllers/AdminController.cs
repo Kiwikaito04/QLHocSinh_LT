@@ -103,7 +103,8 @@ namespace QLHocSinh_LT.Controllers
                     {
                         var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                         //Lớp 4: Thử cập nhật mật khẩu
-                        var passwordChangeResult = await _userManager.ResetPasswordAsync(user, token, model.NewPassword);
+                        var passwordChangeResult = 
+                            await _userManager.ResetPasswordAsync(user, token, model.NewPassword);
                         if (!passwordChangeResult.Succeeded)
                         {
                             foreach (var error in passwordChangeResult.Errors)

@@ -151,10 +151,7 @@ namespace QLHocSinh_LT.Controllers
             ETeacherVM teacher)
         {
             if (id != teacher.Id)
-            {
                 return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
@@ -164,7 +161,6 @@ namespace QLHocSinh_LT.Controllers
                     {
                         return NotFound();
                     }
-
                     // Update teacher properties
                     existingTeacher.HoTen = teacher.HoTen;
                     existingTeacher.GioiTinh = teacher.GioiTinh;
@@ -177,20 +173,13 @@ namespace QLHocSinh_LT.Controllers
                     // Update the teacher record in the database
                     _teacherRepo.UpdateTeacher(existingTeacher);
                     await _teacherRepo.SaveAsync();
-
-                    //_teacherRepo.UpdateTeacher(teacher);
-                    //await _teacherRepo.SaveAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (await _teacherRepo.GetTeacherByIdAsync(teacher.Id) == null)
-                    {
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
                 return RedirectToAction(nameof(Details), new { id = teacher.Id });
             }

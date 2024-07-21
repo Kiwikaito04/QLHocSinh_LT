@@ -110,7 +110,8 @@ namespace QLHocSinh_LT.Controllers
 
                 grade.TeacherId = teacher.Id;
 
-                var existingGrade = await repo.GetGradeAsync(grade.CourseId, grade.StudentId, grade.TeacherId);
+                var existingGrade = 
+                    await repo.GetGradeAsync(grade.CourseId, grade.StudentId, grade.TeacherId);
 
                 if (existingGrade == null)
                 {
@@ -133,7 +134,6 @@ namespace QLHocSinh_LT.Controllers
                 await repo.UpdateStudentAverageScoreAsync(grade.StudentId);
                 return RedirectToAction(nameof(Index), new { courseId = grade.CourseId });
             }
-
             return View(grade);
         }
     }

@@ -44,7 +44,9 @@ namespace QLHocSinh_LT.Models
 
         public async Task<IEnumerable<Course>> GetCoursesByTeacherAsync(string teacherId)
         {
-            var teacher = await _context.Teachers.Include(t => t.Faculty).FirstOrDefaultAsync(t => t.IdentityUserId == teacherId);
+            var teacher = await _context.Teachers
+                .Include(t => t.Faculty)
+                .FirstOrDefaultAsync(t => t.IdentityUserId == teacherId);
             if (teacher == null)
             {
                 return new List<Course>();

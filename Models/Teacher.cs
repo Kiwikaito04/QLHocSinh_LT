@@ -92,9 +92,7 @@ namespace QLHocSinh_LT.Models
             }
         }
 
-
         public async Task SaveAsync() 
             => await _context.SaveChangesAsync();
-
     }
 }

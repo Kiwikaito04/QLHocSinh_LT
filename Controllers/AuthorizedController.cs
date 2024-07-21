@@ -40,7 +40,10 @@ namespace QLHocSinh_LT.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByNameAsync(model.Username);
-                if (user != null && (await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false)).Succeeded)
+                if (user != null && 
+                    (await _signInManager
+                        .PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false)
+                    ).Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: model.RememberMe);
                     return RedirectToAction("Index", "Home");

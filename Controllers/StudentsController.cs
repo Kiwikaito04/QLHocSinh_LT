@@ -10,7 +10,7 @@ namespace QLHocSinh_LT.Controllers
     [Authorize(Roles = "Admin")]
     public class StudentsController : Controller
     {
-        private IStudentRepository repo;
+        private readonly IStudentRepository repo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         public int PageSize = 10;

@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models;
 using QLHocSinh_LT.Models.ViewModels;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Text;
 
 namespace QLHocSinh_LT.Controllers
 {
@@ -82,7 +85,7 @@ namespace QLHocSinh_LT.Controllers
         {
             if (ModelState.IsValid)
             {
-                string usernname = student.HoTen.Replace(" ","").ToLower();
+                string usernname = NormalizeName(student.HoTen);
                 string password = student.NgaySinh.ToString("dd/MM/yyyy").Replace("/","");
                 var user = new ApplicationUser
                 {
@@ -272,6 +275,39 @@ namespace QLHocSinh_LT.Controllers
             await repo.SaveAsync();
             ViewBag.Message = "Xoá học sinh thành công";
             return RedirectToAction(nameof(Index));
+        }
+
+        public string NormalizeName(string name)
+        {
+            // Xóa dấu
+            string normalized = RemoveAccents(name);
+
+            // Xóa khoảng trắng ở đầu và cuối
+            normalized = normalized.Trim();
+
+            // Chuyển về chữ thường
+            normalized = normalized.ToLower();
+
+            // Xóa dấu cách trong tên
+            normalized = Regex.Replace(normalized, @"\s", "");
+
+            return normalized;
+        }
+        // Hàm xóa dấu
+        public string RemoveAccents(string text)
+        {
+            string normalized = text.Normalize(NormalizationForm.FormD);
+            StringBuilder sb = new StringBuilder();
+
+            foreach (char c in normalized)
+            {
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                {
+                    sb.Append(c);
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }

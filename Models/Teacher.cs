@@ -73,6 +73,7 @@ namespace QLHocSinh_LT.Models
 
         public async Task<Teacher> GetTeacherByIdAsync(int id) 
             => await _context.Teachers
+                .Include(f => f.Faculty)
                 .Include(s => s.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
 

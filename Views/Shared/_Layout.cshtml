@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <nav id="sidebar" >
+        <nav id="sidebar">
             <div class="sidebar-header">
                 <h3>TRƯỜNG HUFLIT</h3>
             </div>
@@ -25,24 +25,34 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Teachers" asp-action="Index"><i class="fas fa-chalkboard-teacher"></i> Teachers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Students" asp-action="Index"><i class="fas fa-user-graduate"></i> Students</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Faculties" asp-action="Index"><i class="fas fa-building"></i> Faculties</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Courses" asp-action="Index"><i class="fas fa-clipboard-list"></i> Courses</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Index"><i class="fas fa-user-tie"></i> Admin</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Grades" asp-action="SelectCourse"><i class="fas fa-user-tie"></i> Grades</a>
-                </li>
+
+                @if (User.IsInRole("Teacher"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Grades" asp-action="SelectCourse"><i class="fas fa-user-tie"></i> Grades</a>
+                    </li>
+                }
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Teachers" asp-action="Index"><i class="fas fa-chalkboard-teacher"></i> Teachers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Students" asp-action="Index"><i class="fas fa-user-graduate"></i> Students</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Faculties" asp-action="Index"><i class="fas fa-building"></i> Faculties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Courses" asp-action="Index"><i class="fas fa-clipboard-list"></i> Courses</a>
+                    </li>
+                }
+
+                @if (User.IsInRole("Student"))
+                {
+                    
+                }
             </ul>
         </nav>
         <div id="content">

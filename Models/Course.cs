@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace QLHocSinh_LT.Models
@@ -49,7 +50,10 @@ namespace QLHocSinh_LT.Models
 
         public IEnumerable<Course> GetAllCourses() => _context.Courses.ToList();
 
-        public Course GetCourseById(int id) => _context.Courses.Find(id);
+        public Course GetCourseById(int id) 
+            => _context.Courses
+            .Include(c => c.Faculty)
+            .FirstOrDefault(c => c.Id == id);
 
         public void AddCourse(Course course) => _context.Courses.Add(course);
 

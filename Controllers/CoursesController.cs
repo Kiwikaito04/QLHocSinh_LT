@@ -17,6 +17,7 @@ namespace QLHocSinh_LT.Controllers
             this.repo = repo;
         }
 
+        // GET: Courses
         public IActionResult Index(int currentPage = 1)
             => View(new CoursesListViewModel
             {
@@ -32,5 +33,23 @@ namespace QLHocSinh_LT.Controllers
                     TotalItems = repo.Courses.Count()
                 }
             });
+
+        // GET: Courses/Details/5
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var course = repo.GetCourseById(id.Value);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
+        }
+
+
     }
 }

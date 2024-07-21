@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace QLHocSinh_LT.Models
@@ -24,11 +25,12 @@ namespace QLHocSinh_LT.Models
     public interface IFacultyRepository
     {
         IQueryable<Faculty> Faculties { get; }
-        Faculty GetFacultyById(int id);
-        void AddFaculty(Faculty faculty);
+        Task<IEnumerable<Faculty>> GetAllCourses();
+        Task<Faculty> GetFacultyByIdAsync(int id);
+        Task AddFacultyAsync(Faculty faculty);
         void UpdateFaculty(Faculty faculty);
-        void DeleteFaculty(int id);
-        void Save();
+        Task DeleteFacultyAsync(int id);
+        Task SaveAsync();
     }
 
     public class EFFacultyRepository : IFacultyRepository
@@ -38,26 +40,33 @@ namespace QLHocSinh_LT.Models
         {
             _context = ctx;
         }
-        public IQueryable<Faculty> Faculties => _context.Faculties;
 
-        public IEnumerable<Faculty> GetAllCourses() => _context.Faculties.ToList();
+        public IQueryable<Faculty> Faculties 
+            => _context.Faculties;
 
-        public Faculty GetFacultyById(int id) => _context.Faculties.Find(id);
+        public async Task<IEnumerable<Faculty>> GetAllCourses() 
+            => await _context.Faculties.ToListAsync();
 
-        public void AddFaculty(Faculty faculty) => _context.Faculties.Add(faculty);
+        public async Task<Faculty> GetFacultyByIdAsync(int id) 
+            => await _context.Faculties.FindAsync(id);
 
-        public void UpdateFaculty(Faculty faculty) => _context.Faculties.Update(faculty);
+        public async Task AddFacultyAsync(Faculty faculty) 
+            => await _context.Faculties.AddAsync(faculty);
 
-        public void DeleteFaculty(int id)
+        public void UpdateFaculty(Faculty faculty) 
+            => _context.Faculties.Update(faculty);
+
+        public async Task DeleteFacultyAsync(int id)
         {
-            var faculty = _context.Faculties.Find(id);
+            var faculty = await _context.Faculties.FindAsync(id);
             if (faculty != null)
             {
                 _context.Faculties.Remove(faculty);
             }
         }
 
-        public void Save() => _context.SaveChanges();
+        public async Task SaveAsync() 
+            => await _context.SaveChangesAsync();
     }
 
 }

@@ -9,7 +9,7 @@ namespace QLHocSinh_LT.Controllers
     [Authorize(Roles = "Admin")]
     public class FacultiesController : Controller
     {
-        private IFacultyRepository repo;
+        private readonly IFacultyRepository repo;
         public int PageSize = 10;
 
         public FacultiesController(IFacultyRepository repo)
@@ -18,29 +18,35 @@ namespace QLHocSinh_LT.Controllers
         }
 
         // GET: Faculties
-        public IActionResult Index(int currentPage = 1)
-            => View(new FacultiesListViewModel
+        public async Task<IActionResult> Index(int currentPage = 1)
+        {
+            var totalItems = await repo.Faculties.CountAsync();
+
+            var viewModel = new FacultiesListViewModel
             {
-                Faculties = repo.Faculties
-                    .OrderBy(s => s.Id)
-                    .Skip((currentPage - 1) * PageSize)
-                    .Take(PageSize),
+                Faculties = await repo.Faculties
+                            .OrderBy(s => s.Id)
+                            .Skip((currentPage - 1) * PageSize)
+                            .Take(PageSize)
+                            .ToListAsync(),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = currentPage,
                     ItemsPerPage = PageSize,
-                    TotalItems = repo.Faculties.Count()
+                    TotalItems = totalItems
                 }
-            });
+            };
+            return View(viewModel);
+        }
 
         // GET: Faculties/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var faculty = repo.GetFacultyById(id.Value);
+            var faculty = await repo.GetFacultyByIdAsync(id.Value);
             if (faculty == null)
             {
                 return NotFound();
@@ -50,31 +56,33 @@ namespace QLHocSinh_LT.Controllers
         }
 
         // GET: Faculties/Create
-        public IActionResult Create() => View();
+        public IActionResult Create() 
+            => View();
 
         // POST: Faculties/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Ten,MoTa")] Faculty faculty)
+        public async Task<IActionResult> Create(
+            [Bind("Id,Ten,MoTa")] Faculty faculty)
         {
             if (ModelState.IsValid)
             {
-                repo.AddFaculty(faculty);
-                repo.Save();
+                await repo.AddFacultyAsync(faculty);
+                await repo.SaveAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(faculty);
         }
 
         // GET: Faculties/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var faculty = repo.GetFacultyById(id.Value);
+            var faculty = await repo.GetFacultyByIdAsync(id.Value);
             if (faculty == null)
             {
                 return NotFound();
@@ -85,7 +93,7 @@ namespace QLHocSinh_LT.Controllers
         // POST: Faculties/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Ten,MoTa")] Faculty faculty)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Ten,MoTa")] Faculty faculty)
         {
             if (id != faculty.Id)
             {
@@ -97,11 +105,11 @@ namespace QLHocSinh_LT.Controllers
                 try
                 {
                     repo.UpdateFaculty(faculty);
-                    repo.Save();
+                    await repo.SaveAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (repo.GetFacultyById(faculty.Id) == null)
+                    if (repo.GetFacultyByIdAsync(faculty.Id) == null)
                     {
                         return NotFound();
                     }
@@ -116,14 +124,14 @@ namespace QLHocSinh_LT.Controllers
         }
 
         // GET: Faculties/Delete/5
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var faculty = repo.GetFacultyById(id.Value);
+            var faculty = await repo.GetFacultyByIdAsync(id.Value);
             if (faculty == null)
             {
                 return NotFound();
@@ -135,10 +143,10 @@ namespace QLHocSinh_LT.Controllers
         // POST: Faculties/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            repo.DeleteFaculty(id);
-            repo.Save();
+            await repo.DeleteFacultyAsync(id);
+            await repo.SaveAsync();
             return RedirectToAction(nameof(Index));
         }
     }

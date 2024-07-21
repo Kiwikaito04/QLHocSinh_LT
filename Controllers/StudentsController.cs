@@ -142,7 +142,7 @@ namespace QLHocSinh_LT.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, 
             [Bind("Id,HoTen,GioiTinh,NgaySinh,DiaChi,LopHoc,Email,SDT,DiemTrungBinh")] 
-            Student student)
+            EStudentVM student)
         {
             if (id != student.Id)
             {

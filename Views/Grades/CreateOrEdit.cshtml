@@ -7,7 +7,7 @@
 <h2>Input Grade</h2>
 
 <form asp-action="CreateOrEdit">
-    <div class="form-group">
+    <div class="form-group" style="padding-bottom:10px">
         <label asp-for="Score" class="control-label"></label>
         <input asp-for="Score" class="form-control" />
         <span asp-validation-for="Score" class="text-danger"></span>
@@ -15,11 +15,12 @@
     <input type="hidden" asp-for="CourseId" />
     <input type="hidden" asp-for="StudentId" />
     <input type="hidden" asp-for="TeacherId" />
-    <div class="form-group">
+    <div class="form-group" style="padding-bottom:10px">
         <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-secondary">Back to List</a>
     </div>
 </form>
 
 <div>
-    <a asp-action="Index" asp-route-courseId="@Model.CourseId">Back to List</a>
+    
 </div>

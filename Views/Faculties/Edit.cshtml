@@ -6,12 +6,12 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="Ten" class="control-label"></label>
                 <input asp-for="Ten" class="form-control" />
                 <span asp-validation-for="Ten" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="MoTa" class="control-label"></label>
                 <input asp-for="MoTa" class="form-control" />
                 <span asp-validation-for="MoTa" class="text-danger"></span>
@@ -19,12 +19,13 @@
 
             <div class="form-group">
                 <input type="submit" value="Submit" class="btn btn-primary" />
+                <partial name="Btn-Back" />
             </div>
         </form>
     </div>
 </div>
 <div>
-    <partial name="Btn-Back" />
+    
 </div>
 @section Scripts {
     @{

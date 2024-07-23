@@ -7,12 +7,12 @@
     <div class="col-md-4">
 
         <form asp-action="Create">
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="HoTen" class="control-label"></label>
                 <input asp-for="HoTen" class="form-control" />
                 <span asp-validation-for="HoTen" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="GioiTinh" class="control-label"></label>
                 <select asp-for="GioiTinh" class="form-control">
                     <option value="Nam">Nam</option>
@@ -20,27 +20,27 @@
                 </select>
                 <span asp-validation-for="GioiTinh" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="NgaySinh" class="control-label"></label>
                 <input asp-for="NgaySinh" class="form-control" />
                 <span asp-validation-for="NgaySinh" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="DiaChi" class="control-label"></label>
                 <input asp-for="DiaChi" class="form-control" />
                 <span asp-validation-for="DiaChi" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="SDT" class="control-label"></label>
                 <input asp-for="SDT" class="form-control" />
                 <span asp-validation-for="SDT" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="LopHoc" class="control-label"></label>
                 <input asp-for="LopHoc" class="form-control" />
                 <span asp-validation-for="LopHoc" class="text-danger"></span>
@@ -48,12 +48,13 @@
 
             <div class="form-group">
                 <input type="submit" value="Lưu" class="btn btn-primary" />
+                 <partial name="Btn-Back" />
             </div>
         </form>
     </div>
 </div>
 <div>
-    <partial name="Btn-Back" />
+   
 </div>
 @section Scripts {
     @{

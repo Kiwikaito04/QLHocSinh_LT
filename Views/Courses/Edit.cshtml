@@ -4,34 +4,32 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
-
-<h4>Course</h4>
+<h1>Chỉnh sửa thông tin môn học</h1>
 <hr />
 
 <partial name="_AlertBag" />
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" style="padding-bottom:10px">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="Ten" class="control-label"></label>
                 <input asp-for="Ten" class="form-control" />
                 <span asp-validation-for="Ten" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="TinChi" class="control-label"></label>
                 <input asp-for="TinChi" class="form-control" />
                 <span asp-validation-for="TinChi" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="MoTa" class="control-label"></label>
                 <input asp-for="MoTa" class="form-control" />
                 <span asp-validation-for="MoTa" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="FacultyId" class="control-label"></label>
                 <select asp-for="FacultyId" class="form-control" asp-items="ViewBag.FacultyId"></select>
                 <span asp-validation-for="FacultyId" class="text-danger"></span>

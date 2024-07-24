@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-namespace QLHocSinh_LT.Models.ViewModels.IU
+namespace QLHocSinh_LT.Models.ViewModels
 {
     public class CFacultyVM
     {

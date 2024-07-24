@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models;
 using QLHocSinh_LT.Models.ViewModels;
-using QLHocSinh_LT.Models.ViewModels.IU;
 
 namespace QLHocSinh_LT.Controllers
 {

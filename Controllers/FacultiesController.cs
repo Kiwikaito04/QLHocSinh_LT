@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Plugins;
 using QLHocSinh_LT.Models;
 using QLHocSinh_LT.Models.ViewModels;
 using QLHocSinh_LT.Models.ViewModels.IU;
@@ -114,27 +115,21 @@ namespace QLHocSinh_LT.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) 
             {
                 try
                 {
                     repo.UpdateFaculty(faculty);
                     await repo.SaveAsync();
+                    return RedirectToAction(nameof(Details), new { id = faculty.Id } );
                 }
-                catch (DbUpdateConcurrencyException)
+                catch
                 {
-                    if (repo.GetFacultyByIdAsync(faculty.Id) == null)
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ViewBag.Error = "Some thing went wrong. Please try again later";
+                    return View(faculty);
                 }
-                return RedirectToAction(nameof(Index));
             }
+            ViewBag.Error = "Biểu mẫu không hợp lệ";
             return View(faculty);
         }
 
@@ -160,9 +155,17 @@ namespace QLHocSinh_LT.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await repo.DeleteFacultyAsync(id);
-            await repo.SaveAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await repo.DeleteFacultyAsync(id);
+                await repo.SaveAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                ViewBag.Error = "Some thing went wrong. Please try again later";
+                return View(new { id });
+            }
         }
     }
 }

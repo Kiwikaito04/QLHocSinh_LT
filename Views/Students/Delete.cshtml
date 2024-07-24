@@ -3,6 +3,9 @@
 <h1>Xoá học sinh</h1>
 
 <hr />
+
+<partial name="_ErrorBag" />
+
 <div>
     <h4>Xác nhận xoá?</h4>
     <hr />
@@ -73,14 +76,13 @@
             Password
         </dt>
         <dd class="col-sm-10">
-            @* @Html.DisplayFor(model => model.SDT) *@
             Có cái nịt
         </dd>
     </dl>
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Xác nhận" class="btn btn-danger" /> | 
+        <input type="submit" value="Xác nhận" class="btn btn-danger" /> |
         <partial name="Btn-Back" />
     </form>
 </div>

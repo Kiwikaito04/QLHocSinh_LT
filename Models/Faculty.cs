@@ -25,7 +25,7 @@ namespace QLHocSinh_LT.Models
     public interface IFacultyRepository
     {
         IQueryable<Faculty> Faculties { get; }
-        Task<IEnumerable<Faculty>> GetAllCourses();
+        Task<IEnumerable<Faculty>> GetAllFaculties();
         Task<Faculty> GetFacultyByIdAsync(int id);
         Task AddFacultyAsync(Faculty faculty);
         void UpdateFaculty(Faculty faculty);
@@ -44,7 +44,7 @@ namespace QLHocSinh_LT.Models
         public IQueryable<Faculty> Faculties 
             => _context.Faculties;
 
-        public async Task<IEnumerable<Faculty>> GetAllCourses() 
+        public async Task<IEnumerable<Faculty>> GetAllFaculties() 
             => await _context.Faculties.ToListAsync();
 
         public async Task<Faculty> GetFacultyByIdAsync(int id) 

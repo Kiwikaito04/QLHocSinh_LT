@@ -76,7 +76,7 @@ namespace QLHocSinh_LT.Controllers
         //GET: Teachers/Create
         public async Task<IActionResult> Create()
         {
-            ViewData["Faculties"] = new SelectList(await _facultyRepo.GetAllCourses(), "Id", "Ten");
+            ViewData["Faculties"] = new SelectList(await _facultyRepo.GetAllFaculties(), "Id", "Ten");
             return View();
         }
 
@@ -122,7 +122,7 @@ namespace QLHocSinh_LT.Controllers
                     }
                 }
             }
-            ViewData["Faculties"] = new SelectList(await _facultyRepo.GetAllCourses(), "Id", "Ten", teacher.FacultyId);
+            ViewData["Faculties"] = new SelectList(await _facultyRepo.GetAllFaculties(), "Id", "Ten", teacher.FacultyId);
             return View(teacher);
         }
 
@@ -139,7 +139,7 @@ namespace QLHocSinh_LT.Controllers
             {
                 return NotFound();
             }
-            ViewData["Faculties"] = new SelectList(await _facultyRepo.GetAllCourses(), "Id", "Ten", teacher.FacultyId);
+            ViewData["Faculties"] = new SelectList(await _facultyRepo.GetAllFaculties(), "Id", "Ten", teacher.FacultyId);
             return View(teacher);
         }
 
@@ -183,7 +183,7 @@ namespace QLHocSinh_LT.Controllers
                 }
                 return RedirectToAction(nameof(Details), new { id = teacher.Id });
             }
-            ViewData["Faculties"] = new SelectList(await _facultyRepo.GetAllCourses(), "Id", "Ten", teacher.FacultyId);
+            ViewData["Faculties"] = new SelectList(await _facultyRepo.GetAllFaculties(), "Id", "Ten", teacher.FacultyId);
             return View(teacher);
         }
 

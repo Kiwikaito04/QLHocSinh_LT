@@ -12,7 +12,7 @@ namespace QLHocSinh_LT.Models
         [Required(ErrorMessage = "Tên môn học là bắt buộc.")]
         public string Ten { get; set; } = string.Empty;
 
-        [DisplayName("Tên môn học")]
+        [DisplayName("Tín chỉ")]
         [Required(ErrorMessage = "Số tín chỉ là bắt buộc.")]
         [Range(1, 10, ErrorMessage = "Số tín chỉ phải nằm trong khoảng từ 1 đến 10.")]
         public int TinChi { get; set; }
@@ -32,11 +32,12 @@ namespace QLHocSinh_LT.Models
     public interface ICourseRepository
     {
         IQueryable<Course> Courses { get; }
-        Course GetCourseById(int id);
-        void AddCourse(Course course);
+        Task<IEnumerable<Course>> GetAllCourses();
+        Task<Course> GetCourseByIdAsync(int id);
+        Task AddCourseAsync(Course course);
         void UpdateCourse(Course course);
-        void DeleteCourse(int id);
-        void Save();
+        Task DeleteCourseAsync(int id);
+        Task SaveAsync();
     }
 
     public class EFCourseRepository : ICourseRepository
@@ -46,28 +47,33 @@ namespace QLHocSinh_LT.Models
         {
             _context = ctx;
         }
-        public IQueryable<Course> Courses => _context.Courses;
+        public IQueryable<Course> Courses
+            => _context.Courses;
 
-        public IEnumerable<Course> GetAllCourses() => _context.Courses.ToList();
+        public async Task<IEnumerable<Course>> GetAllCourses() 
+            => await _context.Courses.Include(c => c.Faculty).ToListAsync();
 
-        public Course GetCourseById(int id) 
-            => _context.Courses
+        public async Task<Course> GetCourseByIdAsync(int id) 
+            => await _context.Courses
             .Include(c => c.Faculty)
-            .FirstOrDefault(c => c.Id == id);
+            .FirstOrDefaultAsync(c => c.Id == id);
 
-        public void AddCourse(Course course) => _context.Courses.Add(course);
+        public async Task AddCourseAsync(Course course) 
+            => await _context.Courses.AddAsync(course);
 
-        public void UpdateCourse(Course course) => _context.Courses.Update(course);
+        public void UpdateCourse(Course course) 
+            => _context.Courses.Update(course);
 
-        public void DeleteCourse(int id)
+        public async Task DeleteCourseAsync(int id)
         {
-            var course = _context.Courses.Find(id);
+            var course = await _context.Courses.FindAsync(id);
             if (course != null)
             {
                 _context.Courses.Remove(course);
             }
         }
 
-        public void Save() => _context.SaveChanges();
+        public async Task SaveAsync() 
+            => await _context.SaveChangesAsync();
     }
 }

@@ -497,63 +497,48 @@ namespace QLHocSinh_LT.Models
 
                 if (!context.Users.Any())
                 {
+                    // Create Admin user
                     var adminUser = new ApplicationUser
                     {
                         UserName = "admin",
                         Email = "admin@example.com"
                     };
-                    var studentUser = new ApplicationUser
-                    {
-                        UserName = "st01"
-                    };
-                    var teacherUser = new ApplicationUser
-                    {
-                        UserName = "tc01"
-                    };
-
-                    var result = await userManager.CreateAsync(adminUser, "123456");
+                    await userManager.CreateAsync(adminUser, "123456");
                     await userManager.AddToRoleAsync(adminUser, "Admin");
 
-                    var resultStudent = await userManager.CreateAsync(studentUser, "123456");
-                    if (resultStudent.Succeeded)
+                    // Create Student user
+                    var students = new List<(string UserName, string HoTen, string GioiTinh, DateTime NgaySinh, string DiaChi, string LopHoc)>
                     {
-                        await userManager.AddToRoleAsync(studentUser, "Student");
+                                 ("student1", "Kiwi Kaito", "Nam", new DateTime(2010, 6, 15), "123 Street A", "Lop 1"),
+                                 ("student2", "Hạ Còn Nắng", "Nữ", new DateTime(2011, 7, 20), "456 Street B", "Lop 2"),
+                                 ("student3", "Shy is Shy", "Nam", new DateTime(2012, 8, 25), "789 Street C", "Lop 3")
+                    };
 
-                        // Create student and teacher associated with the admin user
-                        var student = new Student
+                    foreach (var (userName, hoTen, gioiTinh, ngaySinh, diaChi, lopHoc) in students)
+                    {
+                        var studentUser = new ApplicationUser { UserName = userName, Email = $"{userName}@example.com" };
+                        var resultStudent = await userManager.CreateAsync(studentUser, "123456");
+
+                        if (resultStudent.Succeeded)
                         {
-                            HoTen = "Kiwi",
-                            GioiTinh = "Nam",
-                            NgaySinh = new DateTime(2015, 12, 25),
-                            DiaChi = "123 GoVap P16 Q8",
-                            IdentityUserId = studentUser.Id
-                        };
-                        context.Students.Add(student);
+                            await userManager.AddToRoleAsync(studentUser, "Student");
+
+                            var student = new Student
+                            {
+                                HoTen = hoTen,
+                                GioiTinh = gioiTinh,
+                                NgaySinh = ngaySinh,
+                                DiaChi = diaChi,
+                                LopHoc = lopHoc,
+                                DiemTrungBinh = 0,
+                                IdentityUserId = studentUser.Id
+                            };
+
+                            context.Students.Add(student);
+                        }
                     }
 
-                    var resultTeacher = await userManager.CreateAsync(teacherUser, "123456");
-                    if (resultTeacher.Succeeded)
-                    { 
-                        await userManager.AddToRoleAsync(teacherUser, "Teacher");
-
-                        var facultyId = context.Faculties
-                            .Where(f => f.Ten == "Công nghệ thông tin")
-                            .Select(f => f.Id)
-                            .FirstOrDefault();
-
-                        var teacher = new Teacher
-                        {
-                            HoTen = "Mavuika",
-                            GioiTinh = "Nữ",
-                            NgaySinh = new DateTime(2015, 8, 5),
-                            DiaChi = "115 District13 P16 Q8",
-                            FacultyId = facultyId,
-                            IdentityUserId = teacherUser.Id
-                        };
-                        context.Teachers.Add(teacher);
-
-                        context.SaveChanges();
-                    }
+                    await context.SaveChangesAsync();
 
                 }
             }

@@ -52,17 +52,17 @@
             <div class="form-group" style="padding-bottom:10px">
                 <button type="button" class="btn btn-warning" id="resetPasswordButton">Reset Password to Default</button>
             </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <partial name="Btn-Back" />
+            </div>
         </form>
         <form id="resetPasswordForm" asp-action="ResetPassword" method="post" style="display:none;">
             <input type="hidden" name="id" value="@Model.Id" />
         </form>
     </div>
 </div>
-<div class="form-group">
-    <input type="submit" value="Lưu" class="btn btn-primary" />
-    <partial name="Btn-Back" />
-</div>
-<div>
+
     
 </div>
 @section Scripts {

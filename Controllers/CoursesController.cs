@@ -182,9 +182,19 @@ namespace QLHocSinh_LT.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _courseRepo.DeleteCourseAsync(id);
-            await _courseRepo.SaveAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _courseRepo.DeleteCourseAsync(id);
+                await _courseRepo.SaveAsync();
+                ViewBag.Success = "Thao tác thành công";
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                ViewBag.Error = "Some thing went wrong. Please try again later";
+                return await Delete(id);
+            }
+            
         }
     }
 }

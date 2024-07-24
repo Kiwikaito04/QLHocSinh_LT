@@ -68,6 +68,11 @@ namespace QLHocSinh_LT.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (await repo.FacultyExistsAsync(faculty.Ten))
+                {
+                    ViewBag.Error = "Khoa đã tồn tại.";
+                    return View(faculty);
+                }
                 try
                 {
                     var _faculty = new Faculty

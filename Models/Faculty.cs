@@ -31,6 +31,7 @@ namespace QLHocSinh_LT.Models
         void UpdateFaculty(Faculty faculty);
         Task DeleteFacultyAsync(int id);
         Task SaveAsync();
+        Task<bool> FacultyExistsAsync(string ten);
     }
 
     public class EFFacultyRepository : IFacultyRepository
@@ -67,6 +68,8 @@ namespace QLHocSinh_LT.Models
 
         public async Task SaveAsync() 
             => await _context.SaveChangesAsync();
+        public async Task<bool> FacultyExistsAsync(string ten)
+        => await _context.Faculties.AnyAsync(f => f.Ten == ten);
     }
 
 }

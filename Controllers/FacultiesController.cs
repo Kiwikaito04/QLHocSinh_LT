@@ -102,13 +102,19 @@ namespace QLHocSinh_LT.Controllers
             {
                 return NotFound();
             }
-            return View(faculty);
+            var _faculty = new EFacultyVM
+            {
+                Id = faculty.Id,
+                Ten = faculty.Ten,
+                MoTa = faculty.MoTa,
+            };
+            return View(_faculty);
         }
 
         // POST: Faculties/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Ten,MoTa")] Faculty faculty)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Ten,MoTa")] EFacultyVM faculty)
         {
             if (id != faculty.Id)
             {
@@ -118,7 +124,13 @@ namespace QLHocSinh_LT.Controllers
             {
                 try
                 {
-                    repo.UpdateFaculty(faculty);
+                    var _faculty = new Faculty
+                    {
+                        Id = faculty.Id,
+                        Ten = faculty.Ten,
+                        MoTa = faculty.MoTa,
+                    };
+                    repo.UpdateFaculty(_faculty);
                     await repo.SaveAsync();
                     return RedirectToAction(nameof(Details), new { id = faculty.Id } );
                 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QLHocSinh_LT.Models;
 using QLHocSinh_LT.Models.ViewModels;
+using QLHocSinh_LT.Models.ViewModels.IU;
 
 namespace QLHocSinh_LT.Controllers
 {
@@ -63,14 +64,28 @@ namespace QLHocSinh_LT.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("Id,Ten,MoTa")] Faculty faculty)
+            [Bind("Ten,MoTa")] CFacultyVM faculty)
         {
             if (ModelState.IsValid)
             {
-                await repo.AddFacultyAsync(faculty);
-                await repo.SaveAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    var _faculty = new Faculty
+                    {
+                        Ten = faculty.Ten,
+                        MoTa = faculty.MoTa,
+                    };
+                    await repo.AddFacultyAsync(_faculty);
+                    await repo.SaveAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    ViewBag.Error = "Some thing went wrong. Please try again later";
+                    return View(faculty);
+                }
             }
+            ViewBag.Error = "Biểu mẫu không hợp lệ";
             return View(faculty);
         }
 

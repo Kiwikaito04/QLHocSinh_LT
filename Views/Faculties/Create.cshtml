@@ -1,8 +1,12 @@
-﻿@model Faculty
+﻿@model CFacultyVM
 
 <h1>Thêm khoa mới</h1>
 
 <hr />
+@if (ViewBag.Error != null)
+{
+    <div>@ViewBag.Error</div>
+}
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">

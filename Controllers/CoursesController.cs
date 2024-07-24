@@ -111,14 +111,23 @@ namespace QLHocSinh_LT.Controllers
             {
                 return NotFound();
             }
+
+            var _course = new ECourseVM
+            {
+                Id = course.Id,
+                Ten = course.Ten,
+                TinChi = course.TinChi,
+                MoTa = course.MoTa,
+                FacultyId = course.FacultyId,
+            };
             ViewData["FacultyId"] = new SelectList(await _facultyRepo.GetAllFaculties(), "Id", "Ten", course.FacultyId);
-            return View(course);
+            return View(_course);
         }
 
         // POST: Courses/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Ten,TinChi,MoTa,FacultyId")] Course course)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Ten,TinChi,MoTa,FacultyId")] ECourseVM course)
         {
             if (id != course.Id)
             {
@@ -128,7 +137,15 @@ namespace QLHocSinh_LT.Controllers
             {
                 try
                 {
-                    _courseRepo.UpdateCourse(course);
+                    var _course = new Course
+                    {
+                        Id = course.Id,
+                        Ten = course.Ten,
+                        TinChi = course.TinChi,
+                        MoTa = course.MoTa,
+                        FacultyId = course.FacultyId,
+                    };
+                    _courseRepo.UpdateCourse(_course);
                     await _courseRepo.SaveAsync();
                     return RedirectToAction(nameof(Details), new {id=course.Id});
                 }

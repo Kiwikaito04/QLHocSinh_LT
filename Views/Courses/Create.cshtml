@@ -9,7 +9,7 @@
 <h4>Course</h4>
 <hr />
 
-<partial name="_ErrorBag" />
+<partial name="_AlertBag" />
 
 <div class="row">
     <div class="col-md-4">
@@ -36,14 +36,11 @@
                 <span asp-validation-for="FacultyId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Submit" class="btn btn-primary" />
+                <partial name="Btn-Back" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

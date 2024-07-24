@@ -1,11 +1,16 @@
-﻿@model Faculty
+﻿@model EFacultyVM
 
 <h1>Chỉnh sửa thông tin khoa</h1>
 
 <hr />
+
+<partial name="_AlertBag" />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group" style="padding-bottom:10px">
                 <label asp-for="Ten" class="control-label"></label>
                 <input asp-for="Ten" class="form-control" />
@@ -23,9 +28,6 @@
             </div>
         </form>
     </div>
-</div>
-<div>
-    
 </div>
 @section Scripts {
     @{

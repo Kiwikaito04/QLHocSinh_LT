@@ -74,6 +74,13 @@ namespace QLHocSinh_LT.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (await _courseRepo.CourseExistsAsync(course.Ten, course.FacultyId))
+                {
+                    ViewBag.Error = "Môn học đã tồn tại trong khoa này.";
+                    ViewData["FacultyId"] = new SelectList(await _facultyRepo.GetAllFaculties(), "Id", "Ten", course.FacultyId);
+                    return View(course);
+                }
+
                 try
                 {
                     var _course = new Course

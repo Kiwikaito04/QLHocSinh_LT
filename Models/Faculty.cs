@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace QLHocSinh_LT.Models
 {
@@ -69,7 +70,7 @@ namespace QLHocSinh_LT.Models
         public async Task SaveAsync() 
             => await _context.SaveChangesAsync();
         public async Task<bool> FacultyExistsAsync(string ten)
-        => await _context.Faculties.AnyAsync(f => f.Ten == ten);
+        => await _context.Faculties.AnyAsync(f => f.Ten.Trim().ToLower() == ten.Trim().ToLower());
     }
 
 }

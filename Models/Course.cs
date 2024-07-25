@@ -38,6 +38,7 @@ namespace QLHocSinh_LT.Models
         void UpdateCourse(Course course);
         Task DeleteCourseAsync(int id);
         Task SaveAsync();
+        Task<bool> CourseExistsAsync(string ten, int facultyId);
     }
 
     public class EFCourseRepository : ICourseRepository
@@ -71,6 +72,12 @@ namespace QLHocSinh_LT.Models
             {
                 _context.Courses.Remove(course);
             }
+        }
+
+        public async Task<bool> CourseExistsAsync(string ten, int facultyId)
+        {
+            return await _context.Courses
+                .AnyAsync(c => c.Ten.Trim().ToLower() == ten.Trim().ToLower() && c.FacultyId == facultyId);
         }
 
         public async Task SaveAsync() 
